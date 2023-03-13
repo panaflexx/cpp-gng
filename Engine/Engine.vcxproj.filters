@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Matrix2x3.cpp">
+      <Filter>Preset</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundEffect.cpp">
+      <Filter>Preset</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundStream.cpp">
+      <Filter>Preset</Filter>
+    </ClCompile>
+    <ClCompile Include="structs.cpp">
+      <Filter>Preset</Filter>
+    </ClCompile>
+    <ClCompile Include="SVGParser.cpp">
+      <Filter>Preset</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Preset</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>Preset</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2f.cpp">
+      <Filter>Preset</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityKeeper.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="TextureCache.cpp" />
+    <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="base.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="base.h">
+      <Filter>Preset</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix2x3.h">
+      <Filter>Preset</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundEffect.h">
+      <Filter>Preset</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundStream.h">
+      <Filter>Preset</Filter>
+    </ClInclude>
+    <ClInclude Include="structs.h">
+      <Filter>Preset</Filter>
+    </ClInclude>
+    <ClInclude Include="SVGParser.h">
+      <Filter>Preset</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Preset</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Preset</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2f.h">
+      <Filter>Preset</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityKeeper.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="TextureCache.h" />
+    <ClInclude Include="Transform.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Preset">
+      <UniqueIdentifier>{13a8bdf5-95fd-40ad-947a-49f61df18388}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EC">
+      <UniqueIdentifier>{5ee7b51f-b052-4283-9aaa-1e5d156f7a73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base">
+      <UniqueIdentifier>{b8eb849b-32fc-4b75-b7f7-f8739cf6e7ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EC\Components">
+      <UniqueIdentifier>{4cc977c6-a8ef-43e9-9b6e-c05eb2adda3c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
