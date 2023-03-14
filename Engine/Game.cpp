@@ -228,13 +228,14 @@ void Game::CleanupGameEngine()
 
 void Game::Update(float deltaTime)
 {
+	m_pCurrentScene->Update(deltaTime);
 
-	// Call overriden function of child class
 	UpdateGame(deltaTime);
 }
 
 void Game::Draw() const
 {
-	// Call overriden function of child class
+	m_pCurrentScene->Draw();
+	
 	DrawGame();
 }

@@ -28,9 +28,8 @@
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include <SDL_ttf.h> 
-#include <SDL_mixer.h> 
+#include <SDL_mixer.h>
 #include <SDL_image.h>
 
 #pragma warning(default : 26812)
 #include "structs.h"
-

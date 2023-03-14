@@ -14,6 +14,7 @@ EntityKeeper::~EntityKeeper()
     {
         delete entity;
     }
+    m_Entities.clear();
 }
 
 Entity* EntityKeeper::CreateEntity()

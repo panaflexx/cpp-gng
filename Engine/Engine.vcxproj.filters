@@ -25,16 +25,36 @@
     <ClCompile Include="Vector2f.cpp">
       <Filter>Preset</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Component.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="EntityKeeper.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="TextureCache.cpp" />
-    <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="base.cpp" />
+    <ClCompile Include="base.cpp">
+      <Filter>Preset</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>EC</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>EC</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityKeeper.cpp">
+      <Filter>EC</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>EC\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureCache.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>EC\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base.h">
@@ -64,15 +84,33 @@
     <ClInclude Include="Vector2f.h">
       <Filter>Preset</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="EntityKeeper.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="TextureCache.h" />
-    <ClInclude Include="Transform.h" />
+    <ClInclude Include="Camera.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>EC</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>EC</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityKeeper.h">
+      <Filter>EC</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>EC\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureCache.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>EC\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Preset">
