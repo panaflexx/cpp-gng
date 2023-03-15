@@ -33,7 +33,7 @@ Texture* TextureCache::GetTexture(const std::string& name)
 
 void TextureCache::UnloadAllTextures()
 {
-	for (auto&& pair : m_Textures)
+	for (const std::pair< std::string, Texture*> pair : m_Textures)
 	{
 		delete pair.second;
 	}

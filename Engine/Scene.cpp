@@ -26,7 +26,6 @@ Scene::~Scene()
 void Scene::Initialize(Game* pGame)
 {
 	m_pGame = pGame;
-	m_pEntityKeeper = new EntityKeeper(this);
 
 	InitializeScene();
 	assert(m_pCamera != nullptr && "Scene has no assigned camera");

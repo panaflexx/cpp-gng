@@ -9,7 +9,7 @@ void Entity::AddComponent(Component* comp)
 	m_Components.push_back(comp);
 }
 
-std::list<Component*> Entity::GetComponents() const
+std::vector<Component*> Entity::GetComponents() const
 {
 	return m_Components;
 }
@@ -59,9 +59,9 @@ Entity::Entity(Scene* scene, int updatePriority)
 
 Entity::~Entity()
 {
-	for (auto&& comp : m_Components)
+	for(size_t i{ 0 }; i < m_Components.size(); ++i)
 	{
-		delete comp;
-		comp = nullptr;
+		delete m_Components[i];
+		m_Components[i] = nullptr;
 	}
 }

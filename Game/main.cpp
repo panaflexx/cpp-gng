@@ -1,5 +1,7 @@
 #include "pch.h"
 #include <ctime>
+
+#include "EntityKeeper.h"
 #include "Game.h"
 #include "GhostsAndGoblins.h"
 
@@ -16,7 +18,6 @@ int SDL_main(int argv, char** args)
 	Game* pGame{ new GhostsAndGoblins{ Window{ "Ghosts N' Goblins - Nellessen, Patrick - 1DAE12", 480, 320 } } };
 	pGame->Run();
 	delete pGame;
-
 	DumpMemoryLeaks();
 	return 0;
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <iostream>
-#include <list>
+#include <vector>
 #include "Component.h"
 
 class EntityKeeper;
@@ -18,7 +18,7 @@ public:
 	template<typename TComponent>
 	TComponent* GetComponent() const;
 	void AddComponent(Component* comp);
-	std::list<Component*> GetComponents() const;
+	std::vector<Component*> GetComponents() const;
 
 	void Initialize() const;
 
@@ -43,7 +43,7 @@ private:
 	const int m_UpdatePriority;
 
 	bool m_IsActive = true;
-	std::list<Component*> m_Components;
+	std::vector<Component*> m_Components;
 	std::string m_Tag;
 
 	// Allow only EntityKeeper to manage lifecycle of Entities

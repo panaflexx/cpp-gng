@@ -31,4 +31,3 @@ protected:
 	TextureCache* m_pTextureCache;
 	Camera* m_pCamera;
 };
-
