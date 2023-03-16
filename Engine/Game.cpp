@@ -159,47 +159,34 @@ void Game::Run()
 			case SDL_QUIT:
 				quit = true;
 				break;
-				// TODO Input Handler with below
-				/*
-				case SDL_KEYDOWN:
-					break;
-				case SDL_KEYUP:
-					break;
-				case SDL_MOUSEMOTION:
-					e.motion.y = static_cast<int>(m_Window.height) - e.motion.y;
-					break;
-				case SDL_MOUSEBUTTONDOWN:
-					e.button.y = static_cast<int>(m_Window.height) - e.button.y;
-					break;
-				case SDL_MOUSEBUTTONUP:
-					e.button.y = static_cast<int>(m_Window.height) - e.button.y;
-					break;
-				}*/
 			}
-
-			if (quit) return;
-
-			// Get current time
-			std::chrono::steady_clock::time_point t2 = std::chrono::steady_clock::now();
-
-			// Calculate elapsed time
-			float elapsedSeconds = std::chrono::duration<float>(t2 - t1).count();
-
-			// Update current time
-			t1 = t2;
-
-			// Prevent jumps in time caused by break points
-			elapsedSeconds = std::min(elapsedSeconds, m_MaxElapsedSeconds);
-
-			// Call the Game object's Update function, using time in seconds (!)
-			this->Update(elapsedSeconds);
-
-			// Draw in the back buffer
-			this->Draw();
-
-			// Update screen: swap back and front buffer
-			SDL_GL_SwapWindow(m_pWindow);
 		}
+
+		if (quit) return;
+
+		// Get current time
+		std::chrono::steady_clock::time_point t2 = std::chrono::steady_clock::now();
+
+		// Calculate elapsed time
+		float elapsedSeconds = std::chrono::duration<float>(t2 - t1).count();
+		// Update current time
+		t1 = t2;
+
+		std::cout << "DeltaTime: " << elapsedSeconds << '\n';
+
+		// Prevent jumps in time caused by break points
+		elapsedSeconds = std::min(elapsedSeconds, m_MaxElapsedSeconds);
+		// Call the Game object's Update function, using time in seconds (!)
+		this->Update(elapsedSeconds);
+
+		glClearColor(0.0f, 0.0f, 0.3f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		// Draw in the back buffer
+		this->Draw();
+
+		// Update screen: swap back and front buffer
+		SDL_GL_SwapWindow(m_pWindow);
 	}
 }
 

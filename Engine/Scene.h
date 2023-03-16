@@ -1,5 +1,6 @@
 #pragma once
 
+class PhysicsHandler;
 class TextureCache;
 class EntityKeeper;
 class Camera;
@@ -24,10 +25,14 @@ public:
 	virtual void UpdateScene(float deltaTime) = 0;
 	virtual void DrawScene() const = 0;
 
+	EntityKeeper* GetEntityKeeper() const;
+	PhysicsHandler* GetPhysicsHandler() const;
+
 protected:
 	Game* m_pGame;
 
 	EntityKeeper* m_pEntityKeeper;
+	PhysicsHandler* m_pPhysicsHandler;
 	TextureCache* m_pTextureCache;
 	Camera* m_pCamera;
 };

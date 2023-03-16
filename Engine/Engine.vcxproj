@@ -26,11 +26,15 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="collisions.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityKeeper.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Matrix2x3.cpp" />
+    <ClCompile Include="PhysicsBody.cpp" />
+    <ClCompile Include="PhysicsHandler.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SoundEffect.cpp" />
@@ -45,12 +49,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collider.h" />
+    <ClInclude Include="collisions.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityKeeper.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Matrix2x3.h" />
     <ClInclude Include="base.h" />
+    <ClInclude Include="PhysicsBody.h" />
+    <ClInclude Include="PhysicsHandler.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SoundEffect.h" />

@@ -13,10 +13,16 @@ public:
 	void SetPosition(Vector2f newPos);
 	void MovePosition(Vector2f delta);
 
+	float GetRotation() const;
+	void SetRotation(float newRotation);
+	void Rotate(float delta);
+
 	float GetScale() const;
 	void SetScale(float newScale);
 
+
 private:
 	Vector2f m_Position;
+	float m_RotationDeg;
 	float m_Scale;
 };
