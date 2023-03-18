@@ -30,6 +30,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityKeeper.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Matrix2x3.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -49,6 +50,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityKeeper.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Matrix2x3.h" />
     <ClInclude Include="base.h" />
     <ClInclude Include="Renderer.h" />

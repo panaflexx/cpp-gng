@@ -55,6 +55,7 @@
     <ClCompile Include="Transform.cpp">
       <Filter>EC\Components</Filter>
     </ClCompile>
+    <ClCompile Include="InputHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base.h">
@@ -111,6 +112,7 @@
     <ClInclude Include="Transform.h">
       <Filter>EC\Components</Filter>
     </ClInclude>
+    <ClInclude Include="InputHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Preset">

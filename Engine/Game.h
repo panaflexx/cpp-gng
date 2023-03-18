@@ -3,6 +3,7 @@
 #include "structs.h"
 #include "SDL.h"
 
+class InputHandler;
 class Scene;
 
 class Game
@@ -25,7 +26,9 @@ public:
 		return m_Viewport;
 	}
 
-private:
+	InputHandler* GetInputHandler() const;
+
+protected:
 	// The window properties
 	const Window m_Window;
 	const Rectf m_Viewport;
@@ -39,6 +42,7 @@ private:
 	const float m_MaxElapsedSeconds;
 
 	Scene* m_pCurrentScene;
+	InputHandler* m_pInputHandler;
 
 	// FUNCTIONS
 	void InitializeGameEngine();

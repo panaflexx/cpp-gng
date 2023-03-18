@@ -5,6 +5,8 @@
 #include "Entity.h"
 
 #include "EntityKeeper.h"
+#include "Game.h"
+#include "InputHandler.h"
 #include "Renderer.h"
 #include "TextureCache.h"
 #include "Transform.h"
@@ -26,6 +28,14 @@ void LevelScene::InitializeScene()
 
 void LevelScene::UpdateScene(float deltaTime)
 {
+	const Uint8* state = SDL_GetKeyboardState(nullptr);
+
+	const float speed{ 10.f };
+
+	if(m_pGame->GetInputHandler()->GetKeyPressed("test"))
+	{
+		std::cout << "CLICKED\n";
+	}
 }
 
 void LevelScene::DrawScene() const

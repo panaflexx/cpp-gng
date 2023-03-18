@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <chrono>
 
+#include "InputHandler.h"
 #include "Scene.h"
 
 Game::Game(const Window& window, Scene* pStartScene)
@@ -15,6 +16,7 @@ Game::Game(const Window& window, Scene* pStartScene)
 	, m_Initialized{ false }
 	, m_MaxElapsedSeconds{ 0.1f }
 	, m_pCurrentScene{ pStartScene }
+	, m_pInputHandler{ new InputHandler() }
 {
 	InitializeGameEngine();
 }
@@ -177,6 +179,8 @@ void Game::Run()
 				}*/
 			}
 
+			m_pInputHandler->Update();
+
 			if (quit) return;
 
 			// Get current time
@@ -201,6 +205,11 @@ void Game::Run()
 			SDL_GL_SwapWindow(m_pWindow);
 		}
 	}
+}
+
+InputHandler* Game::GetInputHandler() const
+{
+	return m_pInputHandler;
 }
 
 void Game::CleanupGameEngine()
@@ -235,6 +244,9 @@ void Game::Update(float deltaTime)
 
 void Game::Draw() const
 {
+	glClearColor(0.0f, 0.0f, 0.3f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+
 	m_pCurrentScene->Draw();
 	
 	DrawGame();
