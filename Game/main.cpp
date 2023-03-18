@@ -15,7 +15,7 @@ int SDL_main(int argv, char** args)
 
 	StartHeapControl();
 
-	Game* pGame{ new GhostsAndGoblins{ Window{ "Ghosts N' Goblins - Nellessen, Patrick - 1DAE12", 480, 320 } } };
+	Game* pGame{ new GhostsAndGoblins{ Window{ "Ghosts N' Goblins - Nellessen, Patrick - 1DAE12", 480, 320, false } } };
 	pGame->Run();
 	delete pGame;
 	DumpMemoryLeaks();

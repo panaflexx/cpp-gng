@@ -68,9 +68,9 @@ void EntityKeeper::DrawEntities() const
     {
         for (const Component* comp : entity->GetComponents())
         {
-            glPushMatrix();
+			glPushMatrix();
             comp->Draw();
-            glPopMatrix();
+			glPopMatrix();
         }
     }
 }

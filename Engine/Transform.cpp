@@ -2,15 +2,14 @@
 #include "Transform.h"
 
 Transform::Transform(Entity* parent)
-	: Component(parent)
-	, m_Position{ Vector2f(0, 0) }
-	, m_Scale{ 1.f }
+	: Transform(parent, Vector2f{ 0.f, 0.f })
 {
 }
 
 Transform::Transform(Entity* parent, Vector2f startingPos)
 	: Component(parent)
 	, m_Position{ startingPos }
+	, m_RotationDeg{ 0.f }
 	, m_Scale{ 1.f }
 {
 }
@@ -28,6 +27,21 @@ void Transform::SetPosition(Vector2f newPos)
 void Transform::MovePosition(Vector2f delta)
 {
 	m_Position += delta;
+}
+
+float Transform::GetRotation() const
+{
+	return m_RotationDeg;
+}
+
+void Transform::SetRotation(float newRotation)
+{
+	m_RotationDeg = newRotation;
+}
+
+void Transform::Rotate(float delta)
+{
+	m_RotationDeg += delta;
 }
 
 float Transform::GetScale() const

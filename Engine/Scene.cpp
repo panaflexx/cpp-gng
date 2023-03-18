@@ -3,14 +3,17 @@
 #include "Scene.h"
 
 #include <cassert>
+#include <iostream>
 
 #include "Camera.h"
 #include "EntityKeeper.h"
+#include "PhysicsHandler.h"
 #include "TextureCache.h"
 
 Scene::Scene(Camera* pCamera)
 	: m_pGame{ nullptr }
 	, m_pEntityKeeper{ new EntityKeeper(this) }
+	, m_pPhysicsHandler{ new PhysicsHandler() }
 	, m_pTextureCache{ new TextureCache() }
 	, m_pCamera{ pCamera }
 {
@@ -19,6 +22,7 @@ Scene::Scene(Camera* pCamera)
 Scene::~Scene()
 {
 	delete m_pEntityKeeper;
+	delete m_pPhysicsHandler;
 	delete m_pTextureCache;
 	delete m_pCamera;
 }
@@ -34,6 +38,8 @@ void Scene::Initialize(Game* pGame)
 void Scene::Update(float deltaTime)
 {
 	m_pEntityKeeper->UpdateEntities(deltaTime);
+	m_pPhysicsHandler->Update(deltaTime);
+	m_pCamera->Update(deltaTime);
 
 	UpdateScene(deltaTime);
 }
@@ -44,7 +50,16 @@ void Scene::Draw() const
 	glPushMatrix();
 	m_pCamera->Draw();
 	m_pEntityKeeper->DrawEntities();
-
 	DrawScene();
 	glPopMatrix();
+}
+
+EntityKeeper* Scene::GetEntityKeeper() const
+{
+	return m_pEntityKeeper;
+}
+
+PhysicsHandler* Scene::GetPhysicsHandler() const
+{
+	return m_pPhysicsHandler;
 }

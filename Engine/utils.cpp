@@ -246,6 +246,16 @@ void utils::DrawPolygon( const std::vector<Point2f>& vertices, bool closed, floa
 	DrawPolygon( vertices.data( ), vertices.size( ), closed, lineWidth );
 }
 
+void utils::DrawPolygon(const std::vector<Vector2f>& vertices, bool closed, float lineWidth)
+{
+	std::vector<Point2f> vec(vertices.size());
+	for(size_t i{ 0 }; i < vertices.size(); ++i)
+	{
+		vec[i] = vertices[i].ToPoint2f();
+	}
+	DrawPolygon(vec);
+}
+
 void utils::DrawPolygon( const Point2f* pVertices, size_t nrVertices, bool closed, float lineWidth )
 {
 	glLineWidth( lineWidth );

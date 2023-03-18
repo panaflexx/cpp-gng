@@ -1,5 +1,6 @@
 #pragma once
 
+class EntityKeeper;
 class Entity;
 class PhysicsHandler;
 
@@ -18,6 +19,9 @@ public:
 	virtual void Initialize() {}
 	virtual void Update(float deltaTime) {}
 	virtual void Draw() const {}
+
+	EntityKeeper* GetEntityKeeper() const;
+	PhysicsHandler* GetPhysicsHandler() const;
 
 protected:
 	Entity* m_pParent;

@@ -2,9 +2,12 @@
 #include "LevelScene.h"
 
 #include "Camera.h"
+#include "Collider.h"
 #include "Entity.h"
 
 #include "EntityKeeper.h"
+#include "PhysicsBody.h"
+#include "PlayerController.h"
 #include "Game.h"
 #include "InputHandler.h"
 #include "Renderer.h"
@@ -12,30 +15,44 @@
 #include "Transform.h"
 
 LevelScene::LevelScene()
-	: Scene(new Camera(10.f))
+	: Scene(new Camera(5.f))
 {
 }
 
 void LevelScene::InitializeScene()
 {
 	m_pTextureCache->LoadTexture("pengo", "pengo.png");
+
 	m_pPlayer = m_pEntityKeeper->CreateEntity();
-	m_pPlayer->AddComponent(new Transform(m_pPlayer));
+
+	m_pPlayer->AddComponent(new Transform(m_pPlayer, Vector2f(10, 40)));
 	m_pPlayer->AddComponent(new Renderer(m_pPlayer, m_pTextureCache->GetTexture("pengo")));
+	m_pPlayer->AddComponent(new PhysicsBody(m_pPlayer));
+
+	const float colliderWidth{ 16.f };
+	const float colliderHeight{ 16.f };
+	m_pPlayer->AddComponent(new Collider(m_pPlayer, std::vector<Vector2f>{
+		Vector2f(0.f, 0.f),
+		Vector2f(0.f, colliderHeight),
+		Vector2f(colliderWidth, colliderHeight),
+		Vector2f(colliderWidth, 0.f)
+	}));
+
+	m_pPlayer->AddComponent(new PlayerController(m_pPlayer));
 
 	m_pPlayer->Initialize();
+
+
+	m_pObstacle = m_pEntityKeeper->CreateEntity(1);
+
+	m_pObstacle->AddComponent(new Transform(m_pObstacle, Vector2f(0, 5)));
+	m_pObstacle->AddComponent(new Collider(m_pObstacle, std::vector<Vector2f>{ Vector2f(0, 0), Vector2f(0, 5), Vector2f(50, 5), Vector2f(50, 0) }));
+
+	m_pObstacle->Initialize();
 }
 
 void LevelScene::UpdateScene(float deltaTime)
 {
-	const Uint8* state = SDL_GetKeyboardState(nullptr);
-
-	const float speed{ 10.f };
-
-	if(m_pGame->GetInputHandler()->GetKeyPressed("test"))
-	{
-		std::cout << "CLICKED\n";
-	}
 }
 
 void LevelScene::DrawScene() const
