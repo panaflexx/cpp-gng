@@ -3,6 +3,7 @@
 #include "Component.h"
 
 #include "Entity.h"
+#include "Game.h"
 #include "Scene.h"
 
 Component::Component(Entity* parent)
@@ -23,4 +24,9 @@ EntityKeeper* Component::GetEntityKeeper() const
 PhysicsHandler* Component::GetPhysicsHandler() const
 {
 	return m_pParent->GetScene()->GetPhysicsHandler();
+}
+
+InputHandler* Component::GetInputHandler() const
+{
+	return m_pParent->GetScene()->GetGame()->GetInputHandler();
 }

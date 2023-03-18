@@ -1,4 +1,3 @@
-// ReSharper disable once CppUnusedIncludeDirective, This is pch
 #include "base.h"
 
 #include "Entity.h"

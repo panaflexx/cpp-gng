@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>Get Component and Assert</Title>
+			<Shortcut>gcassert</Shortcut>
+		</Header>
+		<Snippet>
+			<Code Language="CPP">
+				<![CDATA[$Var$ = m_pParent->GetComponent<$Type$>();
+				assert($Var$ != nullptr && "Entity has $C1$ component but no $Type$ component");]]>
+			</Code>
+			<Declarations>
+				<Literal>
+					<ID>Var</ID>
+					<ToolTip>The variable name to be assigned the component reference.</ToolTip>
+					<Default>m_pTransform</Default>
+				</Literal>
+				<Literal>
+					<ID>Type</ID>
+					<ToolTip>he component type to get.</ToolTip>
+					<Default>Transform</Default>
+				</Literal>
+				<Literal>
+					<ID>C1</ID>
+					<ToolTip>The type of the getter (this)</ToolTip>
+					<Default></Default>
+				</Literal>
+			</Declarations>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

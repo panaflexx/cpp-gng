@@ -1,5 +1,6 @@
 #pragma once
 
+class InputHandler;
 class EntityKeeper;
 class Entity;
 class PhysicsHandler;
@@ -20,8 +21,10 @@ public:
 	virtual void Update(float deltaTime) {}
 	virtual void Draw() const {}
 
+	// Shortcuts for use in components
 	EntityKeeper* GetEntityKeeper() const;
 	PhysicsHandler* GetPhysicsHandler() const;
+	InputHandler* GetInputHandler() const;
 
 protected:
 	Entity* m_pParent;

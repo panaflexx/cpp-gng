@@ -25,6 +25,8 @@ public:
 	virtual void UpdateScene(float deltaTime) = 0;
 	virtual void DrawScene() const = 0;
 
+	Game* GetGame() const;
+
 	EntityKeeper* GetEntityKeeper() const;
 	PhysicsHandler* GetPhysicsHandler() const;
 

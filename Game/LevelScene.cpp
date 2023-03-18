@@ -9,7 +9,6 @@
 #include "PhysicsBody.h"
 #include "PlayerController.h"
 #include "Game.h"
-#include "InputHandler.h"
 #include "Renderer.h"
 #include "TextureCache.h"
 #include "Transform.h"
@@ -23,7 +22,7 @@ void LevelScene::InitializeScene()
 {
 	m_pTextureCache->LoadTexture("pengo", "pengo.png");
 
-	m_pPlayer = m_pEntityKeeper->CreateEntity();
+	m_pPlayer = m_pEntityKeeper->CreateEntity(100, "Player");
 
 	m_pPlayer->AddComponent(new Transform(m_pPlayer, Vector2f(10, 40)));
 	m_pPlayer->AddComponent(new Renderer(m_pPlayer, m_pTextureCache->GetTexture("pengo")));
@@ -43,7 +42,7 @@ void LevelScene::InitializeScene()
 	m_pPlayer->Initialize();
 
 
-	m_pObstacle = m_pEntityKeeper->CreateEntity(1);
+	m_pObstacle = m_pEntityKeeper->CreateEntity(1, "Obstacle");
 
 	m_pObstacle->AddComponent(new Transform(m_pObstacle, Vector2f(0, 5)));
 	m_pObstacle->AddComponent(new Collider(m_pObstacle, std::vector<Vector2f>{ Vector2f(0, 0), Vector2f(0, 5), Vector2f(50, 5), Vector2f(50, 0) }));

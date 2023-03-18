@@ -37,8 +37,8 @@ void Scene::Initialize(Game* pGame)
 
 void Scene::Update(float deltaTime)
 {
-	m_pEntityKeeper->UpdateEntities(deltaTime);
 	m_pPhysicsHandler->Update(deltaTime);
+	m_pEntityKeeper->UpdateEntities(deltaTime);
 	m_pCamera->Update(deltaTime);
 
 	UpdateScene(deltaTime);
@@ -52,6 +52,11 @@ void Scene::Draw() const
 	m_pEntityKeeper->DrawEntities();
 	DrawScene();
 	glPopMatrix();
+}
+
+Game* Scene::GetGame() const
+{
+	return m_pGame;
 }
 
 EntityKeeper* Scene::GetEntityKeeper() const
