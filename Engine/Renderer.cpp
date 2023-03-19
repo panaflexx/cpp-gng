@@ -30,9 +30,12 @@ void Renderer::Draw() const
 		0
 	);
 
-	// Make renderer generic by abstracting this into virtual function
-	m_pTexture->Draw(Rectf(0, 0, m_pTexture->GetWidth(), m_pTexture->GetHeight()));
+	DrawSprite();
+}
 
+void Renderer::DrawSprite() const
+{
+	m_pTexture->DrawCentered();
 }
 
 bool Renderer::GetFlipX() const

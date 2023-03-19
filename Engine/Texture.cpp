@@ -3,6 +3,8 @@
 #include <string>
 #include "Texture.h"
 
+#include "Vector2f.h"
+
 
 Texture::Texture( const std::string& imagePath )
 	:m_Id{ }
@@ -321,6 +323,16 @@ void Texture::Draw( const Rectf& dstRect, const Rectf& srcRect ) const
 		glEnd( );
 	}
 	glDisable( GL_TEXTURE_2D );
+}
+
+void Texture::DrawCentered(const Rectf& srcRect, const Vector2f offset) const
+{
+	const Point2f centeredDstPoint = Point2f(
+		offset.x - (srcRect.width / 2),
+		offset.y - (srcRect.height / 2)
+	);
+
+	Draw(centeredDstPoint, srcRect);
 }
 
 float Texture::GetWidth() const

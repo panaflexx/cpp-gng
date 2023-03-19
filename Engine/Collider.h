@@ -26,7 +26,7 @@ public:
 
 	bool CompareTag(const std::string& tag) const;
 
-	const std::vector<Vector2f>& GetBaseVertices();
+	std::vector<Vector2f>& GetBaseVertices();
 	void SetBaseVertices(std::vector<Vector2f> newVertices);
 	const std::vector<Vector2f>& GetTransformedVertices();
 

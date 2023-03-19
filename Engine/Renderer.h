@@ -4,14 +4,15 @@
 class Texture;
 class Transform;
 
-class Renderer final
-	: public Component
+class Renderer : public Component
 {
 public:
 	explicit Renderer(Entity* pParent, Texture* pTexture);
 
 	void Initialize() override;
 	void Draw() const override;
+
+	virtual void DrawSprite() const;
 
 	bool GetFlipX() const;
 	void SetFlipX(bool newState);

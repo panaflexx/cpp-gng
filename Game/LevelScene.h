@@ -16,5 +16,7 @@ public:
 private:
 	Entity* m_pPlayer{};
 	Entity* m_pObstacle{};
+
+	void CreatePlayer();
 };
 

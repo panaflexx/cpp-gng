@@ -11,6 +11,7 @@ public:
 	bool GetKeyDown(const std::string& key);
 	bool GetKeyPressed(const std::string& key);
 	bool GetKeyUp(const std::string& key);
+	int GetAxis(const std::string& negativeKey, const std::string& positiveKey);
 
 	void Update();
 

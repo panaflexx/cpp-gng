@@ -22,6 +22,14 @@ bool InputHandler::GetKeyUp(const std::string& key)
 	return m_KeyUp[m_KeyMap[key]];
 }
 
+int InputHandler::GetAxis(const std::string& negativeKey, const std::string& positiveKey)
+{
+	if (GetKeyPressed(negativeKey)) return -1;
+	if (GetKeyPressed(positiveKey)) return 1;
+
+	return 0;
+}
+
 void InputHandler::Update()
 {
 	// Keyboard

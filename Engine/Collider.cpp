@@ -86,7 +86,7 @@ bool Collider::CompareTag(const std::string& tag) const
 	return m_pParent->GetTag() == tag;
 }
 
-const std::vector<Vector2f>& Collider::GetBaseVertices()
+std::vector<Vector2f>& Collider::GetBaseVertices()
 {
 	return m_BaseVertices;
 }

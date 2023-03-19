@@ -7,8 +7,11 @@
 GhostsAndGoblins::GhostsAndGoblins(const Window& window)
 	: Game(window, new LevelScene())
 {
-	m_pInputHandler->AddKey("test", SDL_SCANCODE_SPACE);
-	m_pInputHandler->AddKey("test2", SDL_SCANCODE_A);
+	m_pInputHandler->AddKey("left", SDL_SCANCODE_LEFT);
+	m_pInputHandler->AddKey("right", SDL_SCANCODE_RIGHT);
+	m_pInputHandler->AddKey("crouch", SDL_SCANCODE_DOWN);
+	m_pInputHandler->AddKey("jump", SDL_SCANCODE_J);
+	m_pInputHandler->AddKey("fire", SDL_SCANCODE_K);
 }
 
 void GhostsAndGoblins::UpdateGame(float deltaTime)

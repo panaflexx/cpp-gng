@@ -19,6 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AnimationFrame.cpp" />
+    <ClCompile Include="AnimatorAnimationEndTransition.cpp" />
+    <ClCompile Include="AnimatorRenderer.cpp" />
+    <ClCompile Include="AnimatorState.cpp" />
+    <ClCompile Include="AnimatorTransition.cpp" />
     <ClCompile Include="base.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -29,6 +35,7 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="collisions.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ConditionalAnimatorTransition.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityKeeper.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -49,10 +56,17 @@
     <ClCompile Include="Vector2f.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="AnimationFrame.h" />
+    <ClInclude Include="AnimatorAnimationEndTransition.h" />
+    <ClInclude Include="AnimatorRenderer.h" />
+    <ClInclude Include="AnimatorState.h" />
+    <ClInclude Include="AnimatorTransition.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="collisions.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ConditionalAnimatorTransition.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityKeeper.h" />
     <ClInclude Include="Game.h" />
