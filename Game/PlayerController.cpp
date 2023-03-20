@@ -56,7 +56,7 @@ void PlayerController::Update(float deltaTime)
 	}
 
 	UpdateJumping();
-	UpdateShooting();
+	UpdateShooting(deltaTime);
 }
 
 void PlayerController::Draw() const
@@ -78,7 +78,7 @@ void PlayerController::UpdateMovement()
 	}
 
 	m_pAnimator->SetFlipX(m_LookDir != 1);
-	m_pAnimator->SetParameter("moveDir", moveDir);
+	m_pAnimator->SetParameter("isWalking", moveDir != 0);
 
 	// Crouching
 	m_IsCrouched = GetInputHandler()->GetKeyPressed("crouch") && m_IsGrounded;
@@ -100,6 +100,11 @@ void PlayerController::UpdateMovement()
 	if(m_IsGrounded)
 	{
 		m_pPhysicsBody->SetXVelocity(m_MovementSpeed * static_cast<float>(moveDir));
+	}
+
+	if(m_IsShooting && m_IsGrounded)
+	{
+		m_pPhysicsBody->SetXVelocity(0);
 	}
 }
 
@@ -125,6 +130,36 @@ void PlayerController::UpdateJumping() const
 	}
 }
 
-void PlayerController::UpdateShooting()
+void PlayerController::UpdateShooting(float deltaTime)
 {
+	bool canShoot;
+
+	if (m_CurrentShootCooldown > 0)
+	{
+		m_CurrentShootCooldown -= deltaTime;
+		canShoot = false;
+	}
+	else
+	{
+		canShoot = true;
+	}
+
+
+	if(m_CurrentShootTime > 0)
+	{
+		if(m_CurrentShootTime - deltaTime <= 0)
+		{
+			m_IsShooting = false;
+		}
+		m_CurrentShootTime -= deltaTime;
+	}
+	else if(canShoot && GetInputHandler()->GetKeyDown("fire"))
+	{
+		std::cout << "SHOOT" << std::endl;
+		m_CurrentShootTime = m_ShootTime;
+		m_CurrentShootCooldown = m_ShootCooldown;
+		m_IsShooting = true;
+	}
+
+	m_pAnimator->SetParameter("isShooting", m_IsShooting);
 }

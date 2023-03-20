@@ -28,7 +28,7 @@ private:
 	void UpdateMovement();
 	void CheckGrounded(float deltaTime);
 	void UpdateJumping() const;
-	void UpdateShooting();
+	void UpdateShooting(float deltaTime);
 
 	const float m_GravityScale{ 100.f };
 
@@ -39,4 +39,12 @@ private:
 	const float m_JumpForce{ 50.f };
 
 	const float m_CrouchedHitboxHeightMultiplier{ 0.5f };
+
+	const float m_ShootCooldown{ 0.5f };
+	float m_CurrentShootCooldown{};
+
+	const float m_ShootTime{ 0.1f };
+	float m_CurrentShootTime{};
+
+	bool m_IsShooting{ false };
 };

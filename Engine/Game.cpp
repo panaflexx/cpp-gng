@@ -152,6 +152,7 @@ void Game::Run()
 	SDL_Event e{};
 	while (!quit)
 	{
+
 		// Poll next event from queue
 		while (SDL_PollEvent(&e) != 0)
 		{
@@ -214,7 +215,7 @@ void Game::CleanupGameEngine()
 	EnableMenuItem(hmenu, SC_CLOSE, MF_ENABLED);
 #endif
 
-
+	delete m_pInputHandler;
 	delete m_pCurrentScene;
 }
 

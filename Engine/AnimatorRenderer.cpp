@@ -33,7 +33,7 @@ AnimatorRenderer::~AnimatorRenderer()
 	{
 		delete state.second;
 	}
-	for (auto&& transition : m_Transitions)
+	for (const AnimatorTransition* transition : m_Transitions)
 	{
 		delete transition;
 	}

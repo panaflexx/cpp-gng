@@ -15,7 +15,6 @@
 #include "PhysicsBody.h"
 #include "PlayerController.h"
 #include "Game.h"
-#include "Renderer.h"
 #include "TextureCache.h"
 #include "Transform.h"
 
@@ -33,9 +32,9 @@ void LevelScene::InitializeScene()
 	m_pObstacle->AddComponent(new Transform(m_pObstacle, Vector2f(0, 5)));
 	m_pObstacle->AddComponent(new Collider(m_pObstacle, std::vector<Vector2f>{
 		Vector2f(0, 0),
-			Vector2f(0, 5),
-			Vector2f(150, 5),
-			Vector2f(150, 0),
+		Vector2f(0, 5),
+		Vector2f(150, 5),
+		Vector2f(150, 0),
 	}));
 
 	m_pObstacle->Initialize();
@@ -59,24 +58,54 @@ void LevelScene::CreatePlayer()
 	// RENDERING
 	const float spriteWidth{ 22.f };
 	const float spriteHeight{ 25.f };
+	//new AnimationFrame(1.f, Rectf(spriteWidth * 1, spriteHeight * 1, spriteWidth, spriteHeight)),
 	const std::unordered_map<std::string, AnimatorState*> playerStates
 	{
 	{ "idle", new AnimatorState(new Animation(std::vector<AnimationFrame*>{
 			new AnimationFrame(1.f, Rectf(spriteWidth * 1, spriteHeight * 1, spriteWidth, spriteHeight)),
 		}))},
+	{ "walk", new AnimatorState(new Animation(std::vector<AnimationFrame*>{
+			new AnimationFrame(0.15f, Rectf(spriteWidth * 0, spriteHeight * 2, spriteWidth, spriteHeight)),
+			new AnimationFrame(0.15f, Rectf(spriteWidth * 1, spriteHeight * 2, spriteWidth, spriteHeight)),
+		}))},
 	{ "crouch", new AnimatorState(new Animation(std::vector<AnimationFrame*>{
 			new AnimationFrame(1.f, Rectf(spriteWidth * 2, spriteHeight * 1, spriteWidth, spriteHeight)),
 		}))},
-	{ "walk", new AnimatorState(new Animation(std::vector<AnimationFrame*>{
-			new AnimationFrame(0.2f,  Rectf(spriteWidth * 0, spriteHeight * 2, spriteWidth, spriteHeight)),
-			new AnimationFrame(0.2f,  Rectf(spriteWidth * 1, spriteHeight * 2, spriteWidth, spriteHeight)),
-		}))}
+	{ "jump", new AnimatorState(new Animation(std::vector<AnimationFrame*>{
+			new AnimationFrame(1.f, Rectf(spriteWidth * 3, spriteHeight * 1, spriteWidth, spriteHeight)),
+		}))},
+	{ "shoot", new AnimatorState(new Animation(std::vector<AnimationFrame*>{
+			new AnimationFrame(0.15f, Rectf(spriteWidth * 0, spriteHeight * 4, spriteWidth, spriteHeight)),
+			new AnimationFrame(0.15f, Rectf(spriteWidth * 1, spriteHeight * 4, spriteWidth, spriteHeight)),
+		}))},
+	{ "shootCrouched", new AnimatorState(new Animation(std::vector<AnimationFrame*>{
+			new AnimationFrame(0.15f, Rectf(spriteWidth * 2, spriteHeight * 4, spriteWidth, spriteHeight)),
+			new AnimationFrame(0.15f, Rectf(spriteWidth * 3, spriteHeight * 4, spriteWidth, spriteHeight)),
+		}))},
 	};
 
 	const std::list<AnimatorTransition*> playerTransitions
 	{
 		new ConditionalAnimatorTransition("idle", "crouch", "isCrouched", true),
+		new ConditionalAnimatorTransition("idle", "shoot", "isShooting", true),
+		new ConditionalAnimatorTransition("idle", "jump", "isGrounded", false),
+		new ConditionalAnimatorTransition("idle", "walk", "isWalking", true),
+
 		new ConditionalAnimatorTransition("crouch", "idle", "isCrouched", false),
+		new ConditionalAnimatorTransition("crouch", "shootCrouched", "isShooting", true),
+
+		new AnimatorAnimationEndTransition("shoot", "idle"),
+
+		new AnimatorAnimationEndTransition("shootCrouched", "crouch"),
+
+		new ConditionalAnimatorTransition("jump", "idle", "isGrounded", true),
+		new ConditionalAnimatorTransition("jump", "shoot", "isShooting", true),
+
+		new ConditionalAnimatorTransition("walk", "idle", "isWalking", false),
+		new ConditionalAnimatorTransition("walk", "crouch", "isCrouched", true),
+		new ConditionalAnimatorTransition("walk", "jump", "isGrounded", false),
+		new ConditionalAnimatorTransition("walk", "shoot", "isShooting", true),
+
 	};
 
 	m_pPlayer->AddComponent(new AnimatorRenderer(
@@ -91,14 +120,7 @@ void LevelScene::CreatePlayer()
 	// PHYSICS
 	m_pPlayer->AddComponent(new PhysicsBody(m_pPlayer));
 
-	const float colliderWidth{ 8.f };
-	const float colliderHeight{ 8.f };
-	m_pPlayer->AddComponent(new Collider(m_pPlayer, std::vector<Vector2f>{
-		Vector2f(0.f, 0.f),
-		Vector2f(0.f, colliderHeight),
-		Vector2f(colliderWidth, colliderHeight),
-		Vector2f(colliderWidth, 0.f)
-	}));
+	m_pPlayer->AddComponent(new Collider(m_pPlayer, std::vector<Vector2f>{}));
 
 
 	// LOGIC
