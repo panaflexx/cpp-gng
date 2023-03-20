@@ -30,13 +30,13 @@ private:
 	void UpdateJumping() const;
 	void UpdateShooting(float deltaTime);
 
-	const float m_GravityScale{ 100.f };
+	const float m_GravityScale{ 175.f };
 
 	const float m_ColliderWidth{ 22.f };
 	const float m_ColliderHeight{ 25.f };
 
 	const float m_MovementSpeed{ 30.f };
-	const float m_JumpForce{ 50.f };
+	const float m_JumpForce{ 75.f };
 
 	const float m_CrouchedHitboxHeightMultiplier{ 0.5f };
 

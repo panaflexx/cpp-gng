@@ -36,7 +36,7 @@ void Collider::OnCollisionUpdate(Collider* other, float deltaTime) { }
 void Collider::OnCollisionEnter(Collider* other, float deltaTime) { }
 void Collider::OnCollisionExit(Collider* other, float deltaTime) { }
 
-void Collider::Draw() const
+void Collider::DrawDebugCollider() const
 {
 	utils::SetColor(Color4f(1, 0, 0, 1));
 	for (size_t i{ 0 }; i < m_BaseVertices.size(); ++i)

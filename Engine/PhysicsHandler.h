@@ -17,6 +17,7 @@ public:
 	virtual ~PhysicsHandler() = default;
 
 	void Update(float deltaTime);
+	void DrawDebugColliders() const;
 
 	void AddCollider(Collider* collider);
 	void AddPhysicsBody(PhysicsBody* physicsBody);

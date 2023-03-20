@@ -17,7 +17,7 @@ public:
 	virtual void OnCollisionEnter(Collider* other, float deltaTime);
 	virtual void OnCollisionExit(Collider* other, float deltaTime);
 
-	void Draw() const override;
+	void DrawDebugCollider() const;
 
 	void RecalculateTransformedVertices();
 

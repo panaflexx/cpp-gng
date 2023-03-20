@@ -15,11 +15,12 @@
 #include "PhysicsBody.h"
 #include "PlayerController.h"
 #include "Game.h"
+#include "PhysicsHandler.h"
 #include "TextureCache.h"
 #include "Transform.h"
 
 LevelScene::LevelScene()
-	: Scene(new Camera(5.f))
+	: Scene(new Camera(2.f))
 {
 }
 
@@ -46,6 +47,7 @@ void LevelScene::UpdateScene(float deltaTime)
 
 void LevelScene::DrawScene() const
 {
+	//m_pPhysicsHandler->DrawDebugColliders();
 }
 
 void LevelScene::CreatePlayer()

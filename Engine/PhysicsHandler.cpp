@@ -22,6 +22,14 @@ void PhysicsHandler::Update(float deltaTime)
 
 }
 
+void PhysicsHandler::DrawDebugColliders() const
+{
+	for(const Collider* pCollider : m_Colliders)
+	{
+		pCollider->DrawDebugCollider();
+	}
+}
+
 void PhysicsHandler::AddCollider(Collider* collider)
 {
 	m_Colliders.push_back(collider);
