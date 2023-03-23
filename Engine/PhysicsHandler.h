@@ -6,7 +6,7 @@
 class Collider;
 class PhysicsBody;
 
-class PhysicsHandler
+class PhysicsHandler final
 {
 public:
 	explicit PhysicsHandler() = default;

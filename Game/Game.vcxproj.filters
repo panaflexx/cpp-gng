@@ -26,6 +26,9 @@
     <ClCompile Include="PlayerController.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerCollider.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -38,6 +41,9 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="PlayerController.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCollider.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>

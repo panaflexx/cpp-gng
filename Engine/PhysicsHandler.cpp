@@ -7,9 +7,11 @@
 #include "Collider.h"
 #include "PhysicsBody.h"
 #include "collisions.h"
+#include "Entity.h"
 
 void PhysicsHandler::Update(float deltaTime)
 {
+	ResolveCollisions(deltaTime);
 
 	// Apply Velocity
 	for (const PhysicsBody* currentPhysicsBody : m_PhysicsBodies)
@@ -17,7 +19,6 @@ void PhysicsHandler::Update(float deltaTime)
 		currentPhysicsBody->GetTransform()->MovePosition(currentPhysicsBody->GetVelocity() * deltaTime);
 	}
 
-	ResolveCollisions(deltaTime);
 	NotifyColliders(deltaTime);
 
 }
@@ -94,8 +95,6 @@ void PhysicsHandler::ResolveCollisions(float deltaTime) const
 
 				// resolve collision by just pushing position back with normal
 				physicsBody->GetTransform()->MovePosition(-currentCollision.normal * currentCollision.depth);
-				// Vertices changed because of moving, recalculate
-				physicsBody->GetCollider()->RecalculateTransformedVertices();
 			}
 		}
 	}
@@ -140,6 +139,11 @@ void PhysicsHandler::NotifyColliders(float deltaTime)
 			// Set collision state data for next frame
 			m_LastFrameCollisions[currentCollisionPair] = currentlyColliding;
 
+			// If collided position has changed, recalculate
+			if (currentlyColliding)
+			{
+				physicsBody->GetCollider()->RecalculateTransformedVertices();
+			}
 		}
 	}
 }

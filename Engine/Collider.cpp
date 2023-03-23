@@ -9,8 +9,8 @@
 #include "PhysicsHandler.h"
 #include "Transform.h"
 
-Collider::Collider(Entity* parent, std::vector<Vector2f> vertices)
-	: Component(parent)
+Collider::Collider(Entity* pParent, std::vector<Vector2f> vertices)
+	: Component(pParent)
 {
 	assert((vertices.size() > 2 || vertices.empty()) && "Not enough vertices given for collider");
 

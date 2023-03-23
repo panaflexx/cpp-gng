@@ -16,6 +16,7 @@
 #include "PlayerController.h"
 #include "Game.h"
 #include "PhysicsHandler.h"
+#include "PlayerCollider.h"
 #include "TextureCache.h"
 #include "Transform.h"
 
@@ -39,6 +40,19 @@ void LevelScene::InitializeScene()
 	}));
 
 	m_pObstacle->Initialize();
+
+
+	m_pTestEnemy = m_pEntityKeeper->CreateEntity(2, "Enemy");
+
+	m_pTestEnemy->AddComponent(new Transform(m_pTestEnemy, Vector2f(50, 10)));
+	m_pTestEnemy->AddComponent(new Collider(m_pTestEnemy, std::vector<Vector2f>{
+		Vector2f(0, 0),
+		Vector2f(0, 20),
+		Vector2f(20, 20),
+		Vector2f(20, 0),
+	}));
+
+	m_pTestEnemy->Initialize();
 }
 
 void LevelScene::UpdateScene(float deltaTime)
@@ -47,7 +61,7 @@ void LevelScene::UpdateScene(float deltaTime)
 
 void LevelScene::DrawScene() const
 {
-	//m_pPhysicsHandler->DrawDebugColliders();
+	m_pPhysicsHandler->DrawDebugColliders();
 }
 
 void LevelScene::CreatePlayer()
@@ -120,10 +134,8 @@ void LevelScene::CreatePlayer()
 
 
 	// PHYSICS
+	m_pPlayer->AddComponent(new PlayerCollider(m_pPlayer));
 	m_pPlayer->AddComponent(new PhysicsBody(m_pPlayer));
-
-	m_pPlayer->AddComponent(new Collider(m_pPlayer, std::vector<Vector2f>{}));
-
 
 	// LOGIC
 	m_pPlayer->AddComponent(new PlayerController(m_pPlayer));
