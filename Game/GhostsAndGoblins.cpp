@@ -9,7 +9,8 @@ GhostsAndGoblins::GhostsAndGoblins(const Window& window)
 {
 	m_pInputHandler->AddKey("left", SDL_SCANCODE_LEFT);
 	m_pInputHandler->AddKey("right", SDL_SCANCODE_RIGHT);
-	m_pInputHandler->AddKey("crouch", SDL_SCANCODE_DOWN);
+	m_pInputHandler->AddKey("up", SDL_SCANCODE_UP);
+	m_pInputHandler->AddKey("down", SDL_SCANCODE_DOWN);
 	m_pInputHandler->AddKey("jump", SDL_SCANCODE_J);
 	m_pInputHandler->AddKey("fire", SDL_SCANCODE_K);
 }

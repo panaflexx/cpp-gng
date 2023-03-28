@@ -19,6 +19,8 @@ private:
 
 	Entity* m_pTestEnemy{};
 
+	Entity* m_pTestLadder{};
+
 	void CreatePlayer();
 };
 

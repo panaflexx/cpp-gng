@@ -50,9 +50,22 @@ void LevelScene::InitializeScene()
 		Vector2f(0, 20),
 		Vector2f(20, 20),
 		Vector2f(20, 0),
-	}));
+	}, true));
 
 	m_pTestEnemy->Initialize();
+
+
+	m_pTestLadder = m_pEntityKeeper->CreateEntity(0, "Ladder");
+
+	m_pTestLadder->AddComponent(new Transform(m_pTestLadder, Vector2f(80, 10)));
+	m_pTestLadder->AddComponent(new Collider(m_pTestLadder, std::vector<Vector2f>{
+		Vector2f(0, 0),
+		Vector2f(0, 50),
+		Vector2f(10, 50),
+		Vector2f(10, 0),
+	}, true));
+
+	m_pTestLadder->Initialize();
 }
 
 void LevelScene::UpdateScene(float deltaTime)

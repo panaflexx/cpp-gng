@@ -51,15 +51,12 @@ void PhysicsHandler::RemovePhysicsBody(PhysicsBody* physicsBody)
 	m_PhysicsBodies.remove(physicsBody);
 }
 
-std::pair<bool, Collider*> PhysicsHandler::Linecast(Vector2f p1, Vector2f p2) const
-{
-	return Linecast(p1, p2, "");
-}
-
-std::pair<bool, Collider*> PhysicsHandler::Linecast(Vector2f p1, Vector2f p2, const std::string& tag) const
+std::pair<bool, Collider*> PhysicsHandler::Linecast(Vector2f p1, Vector2f p2, const std::string& tag, bool hitTriggers) const
 {
 	for (Collider* currentCollider : m_Colliders)
 	{
+		if (!hitTriggers && currentCollider->IsTrigger()) continue;
+
 		if (collisions::IntersectLinePolygon(p1, p2, currentCollider->GetTransformedVertices()))
 		{
 			// Check if tag of hit object is correct
@@ -77,12 +74,15 @@ void PhysicsHandler::ResolveCollisions(float deltaTime) const
 {
 	for (const PhysicsBody* physicsBody : m_PhysicsBodies)
 	{
+		if (physicsBody->GetCollider()->IsTrigger()) continue;
+
 		// only physics bodies should be moving, so only recalculate their positions
 		physicsBody->GetCollider()->RecalculateTransformedVertices();
 
 		for (Collider* collider : m_Colliders)
 		{
 			if (physicsBody->GetCollider()->GetParent() == collider->GetParent()) continue;
+			if (collider->IsTrigger()) continue;
 
 			collisions::CollisionHitInfo currentCollision = collisions::IntersectPolygons(
 				physicsBody->GetCollider()->GetTransformedVertices(),

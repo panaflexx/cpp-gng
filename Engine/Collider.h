@@ -8,7 +8,7 @@ class Transform;
 class Collider : public Component
 {
 public:
-	explicit Collider(Entity* pParent, std::vector<Vector2f> vertices);
+	explicit Collider(Entity* pParent, std::vector<Vector2f> vertices, bool isTrigger = false);
 	~Collider() override;
 
 	void Initialize() override;

@@ -4,11 +4,11 @@
 #include <cassert>
 
 #include "AnimatorRenderer.h"
-#include "Collider.h"
 #include "Entity.h"
 #include "InputHandler.h"
 #include "PhysicsBody.h"
 #include "PhysicsHandler.h"
+#include "PlayerCollider.h"
 #include "Transform.h"
 #include "utils.h"
 
@@ -25,8 +25,8 @@ void PlayerController::Initialize()
 	assert(m_pPhysicsBody != nullptr && "Entity has PlayerController component but not PhysicsBody component");
 	m_pTransform = m_pParent->GetComponent<Transform>();
 	assert(m_pTransform != nullptr && "Entity has PlayerController component but no Transform component");
-	m_pCollider = m_pParent->GetComponent<Collider>();
-	assert(m_pCollider != nullptr && "Entity has PlayerController component but no Collider component");
+	m_pCollider = m_pParent->GetComponent<PlayerCollider>();
+	assert(m_pCollider != nullptr && "Entity has PlayerController component but no PlayerCollider component");
 	m_pAnimator = m_pParent->GetComponent<AnimatorRenderer>();
 	assert(m_pAnimator != nullptr && "Entity has AnimatorRenderer component but no AnimatorRenderer component");
 
@@ -40,20 +40,26 @@ void PlayerController::Initialize()
 
 void PlayerController::Update(float deltaTime)
 {
-	UpdateMovement();
+	UpdateGroundMovement();
 	CheckGrounded(deltaTime);
 
-	if (!m_IsGrounded)
+	if (!m_IsGrounded && !m_IsClimbing)
 	{
 		// Apply gravity if we're not grounded
 		m_pPhysicsBody->AddVelocity(Vector2f(0, -m_GravityScale * deltaTime));
 	}
-	else
+	else if (m_IsGrounded)
 	{
 		// Reset velocity, otherwise gravity pulls into the ground
 		// if we'd reset to 0 the ground would never register collision
 		m_pPhysicsBody->SetYVelocity(-5);
 	}
+	else
+	{
+		m_pPhysicsBody->SetYVelocity(0);
+	}
+
+	UpdateLadderMovement();
 
 	UpdateJumping();
 	UpdateShooting(deltaTime);
@@ -61,6 +67,7 @@ void PlayerController::Update(float deltaTime)
 
 void PlayerController::Draw() const
 {
+	// Draw grounded check
 	const Vector2f bottomLeft{ m_pTransform->GetPosition() + Vector2f(-m_ColliderWidth / 2 + 1, -m_ColliderHeight / 2 - 0.5f) };
 	const Vector2f bottomRight{ bottomLeft + Vector2f(m_ColliderWidth - 2, 0) };
 
@@ -68,7 +75,7 @@ void PlayerController::Draw() const
 	utils::DrawLine(bottomLeft.ToPoint2f(), bottomRight.ToPoint2f());
 }
 
-void PlayerController::UpdateMovement()
+void PlayerController::UpdateGroundMovement()
 {
 	int moveDir{ GetInputHandler()->GetAxis("left", "right") };
 
@@ -81,7 +88,7 @@ void PlayerController::UpdateMovement()
 	m_pAnimator->SetParameter("isWalking", moveDir != 0);
 
 	// Crouching
-	m_IsCrouched = GetInputHandler()->GetKeyPressed("crouch") && m_IsGrounded;
+	m_IsCrouched = GetInputHandler()->GetKeyPressed("down") && m_IsGrounded;
 	m_pAnimator->SetParameter("isCrouched", m_IsCrouched);
 
 	if(m_IsCrouched)
@@ -105,6 +112,29 @@ void PlayerController::UpdateMovement()
 	if(m_IsShooting && m_IsGrounded)
 	{
 		m_pPhysicsBody->SetXVelocity(0);
+	}
+}
+
+void PlayerController::UpdateLadderMovement()
+{
+	const int ladderInput{ GetInputHandler()->GetAxis("down", "up") };
+
+	if (m_pCollider->IsTouchingLadder() && ladderInput != 0)
+	{
+		m_IsClimbing = true;
+		m_pPhysicsBody->SetYVelocity(m_ClimbSpeed * static_cast<float>(ladderInput))
+	}
+
+	if(m_pCollider->IsTouchingLadder() && GetInputHandler()->GetKeyPressed("up"))
+	{
+		if (!m_IsClimbing) m_IsClimbing = true;
+		m_pPhysicsBody->SetYVelocity(m_ClimbSpeed);
+		m_IsGrounded = false;
+		m_pTransform->SetXPosition(m_pCollider->GetCurrentLadderX());
+	}
+	else if(m_pCollider->IsTouchingLadder() && GetInputHandler()->GetKeyPressed("down"))
+	{
+		
 	}
 }
 

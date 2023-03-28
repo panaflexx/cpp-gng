@@ -29,6 +29,16 @@ void Transform::MovePosition(Vector2f delta)
 	m_Position += delta;
 }
 
+void Transform::SetXPosition(float newX)
+{
+	m_Position.x = newX;
+}
+
+void Transform::SetYPosition(float newY)
+{
+	m_Position.y = newY;
+}
+
 float Transform::GetRotation() const
 {
 	return m_RotationDeg;

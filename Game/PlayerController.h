@@ -1,8 +1,8 @@
 #pragma once
 #include "Component.h"
 
+class PlayerCollider;
 class AnimatorRenderer;
-class Collider;
 class Transform;
 class PhysicsBody;
 
@@ -17,15 +17,17 @@ public:
 
 private:
 	Transform* m_pTransform{ nullptr };
-	Collider* m_pCollider{ nullptr };
+	PlayerCollider* m_pCollider{ nullptr };
 	PhysicsBody* m_pPhysicsBody{ nullptr };
 	AnimatorRenderer* m_pAnimator{ nullptr };
+
 
 	bool m_IsGrounded{ false };
 	bool m_IsCrouched{ false };
 	int m_LookDir{ 1 };
 
-	void UpdateMovement();
+	void UpdateGroundMovement();
+	void UpdateLadderMovement();
 	void CheckGrounded(float deltaTime);
 	void UpdateJumping() const;
 	void UpdateShooting(float deltaTime);
@@ -47,4 +49,8 @@ private:
 	float m_CurrentShootTime{};
 
 	bool m_IsShooting{ false };
+
+
+	const float m_ClimbSpeed{ 50.f };
+	bool m_IsClimbing{ false };
 };

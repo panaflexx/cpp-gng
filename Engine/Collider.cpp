@@ -9,8 +9,9 @@
 #include "PhysicsHandler.h"
 #include "Transform.h"
 
-Collider::Collider(Entity* pParent, std::vector<Vector2f> vertices)
+Collider::Collider(Entity* pParent, std::vector<Vector2f> vertices, bool isTrigger)
 	: Component(pParent)
+	, m_IsTrigger{ isTrigger }
 {
 	assert((vertices.size() > 2 || vertices.empty()) && "Not enough vertices given for collider");
 
@@ -38,7 +39,9 @@ void Collider::OnCollisionExit(Collider* other, float deltaTime) { }
 
 void Collider::DrawDebugCollider() const
 {
-	utils::SetColor(Color4f(1, 0, 0, 1));
+	const Color4f debugColor{ m_IsTrigger ? Color4f(0, 1, 0, 1) : Color4f(1, 0, 0, 1) };
+
+	utils::SetColor(debugColor);
 	for (size_t i{ 0 }; i < m_BaseVertices.size(); ++i)
 	{
 		utils::DrawPolygon(m_TransformedVertices, true, 2.f);

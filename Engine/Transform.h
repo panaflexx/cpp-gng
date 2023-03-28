@@ -13,6 +13,9 @@ public:
 	void SetPosition(Vector2f newPos);
 	void MovePosition(Vector2f delta);
 
+	void SetXPosition(float newX);
+	void SetYPosition(float newY);
+
 	float GetRotation() const;
 	void SetRotation(float newRotation);
 	void Rotate(float delta);
