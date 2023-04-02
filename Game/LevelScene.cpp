@@ -59,6 +59,7 @@ void LevelScene::InitializeScene()
 	m_pTestEnemy = m_pEntityKeeper->CreateEntity(2, "Enemy");
 
 	m_pTestEnemy->AddComponent(new Transform(m_pTestEnemy, Vector2f(50, 10)));
+	m_pTestEnemy->AddComponent(new PhysicsBody(m_pTestEnemy));
 	m_pTestEnemy->AddComponent(new Collider(m_pTestEnemy, std::vector<Vector2f>{
 		Vector2f(0, 0),
 		Vector2f(0, 20),
@@ -84,6 +85,7 @@ void LevelScene::InitializeScene()
 
 void LevelScene::UpdateScene(float deltaTime)
 {
+	m_pTestEnemy->GetComponent<PhysicsBody>()->SetYVelocity(5);
 }
 
 void LevelScene::DrawScene() const

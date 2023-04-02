@@ -74,10 +74,10 @@ void PhysicsHandler::ResolveCollisions(float deltaTime) const
 {
 	for (const PhysicsBody* physicsBody : m_PhysicsBodies)
 	{
-		if (physicsBody->GetCollider()->IsTrigger()) continue;
-
 		// only physics bodies should be moving, so only recalculate their positions
 		physicsBody->GetCollider()->RecalculateTransformedVertices();
+
+		if (physicsBody->GetCollider()->IsTrigger()) continue;
 
 		for (Collider* collider : m_Colliders)
 		{
