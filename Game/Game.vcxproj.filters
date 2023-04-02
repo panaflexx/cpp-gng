@@ -29,6 +29,9 @@
     <ClCompile Include="PlayerCollider.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="LadderCollider.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -44,6 +47,9 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="PlayerCollider.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="LadderCollider.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>

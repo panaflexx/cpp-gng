@@ -15,6 +15,7 @@
 #include "PhysicsBody.h"
 #include "PlayerController.h"
 #include "Game.h"
+#include "LadderCollider.h"
 #include "PhysicsHandler.h"
 #include "PlayerCollider.h"
 #include "TextureCache.h"
@@ -42,6 +43,19 @@ void LevelScene::InitializeScene()
 	m_pObstacle->Initialize();
 
 
+	m_pObstacle2 = m_pEntityKeeper->CreateEntity(1, "Obstacle");
+
+	m_pObstacle2->AddComponent(new Transform(m_pObstacle2, Vector2f(30, 80)));
+	m_pObstacle2->AddComponent(new Collider(m_pObstacle2, std::vector<Vector2f>{
+		Vector2f(0, 0),
+		Vector2f(0, 5),
+		Vector2f(150, 5),
+		Vector2f(150, 0),
+	}));
+
+	m_pObstacle2->Initialize();
+
+
 	m_pTestEnemy = m_pEntityKeeper->CreateEntity(2, "Enemy");
 
 	m_pTestEnemy->AddComponent(new Transform(m_pTestEnemy, Vector2f(50, 10)));
@@ -58,12 +72,12 @@ void LevelScene::InitializeScene()
 	m_pTestLadder = m_pEntityKeeper->CreateEntity(0, "Ladder");
 
 	m_pTestLadder->AddComponent(new Transform(m_pTestLadder, Vector2f(80, 10)));
-	m_pTestLadder->AddComponent(new Collider(m_pTestLadder, std::vector<Vector2f>{
+	m_pTestLadder->AddComponent(new LadderCollider(m_pTestLadder, std::vector<Vector2f>{
 		Vector2f(0, 0),
-		Vector2f(0, 50),
-		Vector2f(10, 50),
+		Vector2f(0, 100),
+		Vector2f(10, 100),
 		Vector2f(10, 0),
-	}, true));
+	}));
 
 	m_pTestLadder->Initialize();
 }
@@ -111,6 +125,11 @@ void LevelScene::CreatePlayer()
 			new AnimationFrame(0.15f, Rectf(spriteWidth * 2, spriteHeight * 4, spriteWidth, spriteHeight)),
 			new AnimationFrame(0.15f, Rectf(spriteWidth * 3, spriteHeight * 4, spriteWidth, spriteHeight)),
 		}))},
+	{ "climb", new AnimatorState(new Animation(std::vector<AnimationFrame*>{
+			new AnimationFrame(0.15f, Rectf(spriteWidth * 0, spriteHeight * 3, spriteWidth, spriteHeight)),
+			new AnimationFrame(0.15f, Rectf(spriteWidth * 1, spriteHeight * 3, spriteWidth, spriteHeight)),
+		}))},
+
 	};
 
 	const std::list<AnimatorTransition*> playerTransitions
@@ -135,6 +154,12 @@ void LevelScene::CreatePlayer()
 		new ConditionalAnimatorTransition("walk", "jump", "isGrounded", false),
 		new ConditionalAnimatorTransition("walk", "shoot", "isShooting", true),
 
+		new ConditionalAnimatorTransition("idle", "climb", "isClimbing", true),
+		new ConditionalAnimatorTransition("crouch", "climb", "isClimbing", true),
+		new ConditionalAnimatorTransition("jump", "climb", "isClimbing", true),
+		new ConditionalAnimatorTransition("walk", "climb", "isClimbing", true),
+
+		new ConditionalAnimatorTransition("climb", "idle", "isClimbing", false),
 	};
 
 	m_pPlayer->AddComponent(new AnimatorRenderer(

@@ -6,6 +6,7 @@
 #include "AnimatorRenderer.h"
 #include "Entity.h"
 #include "InputHandler.h"
+#include "LadderCollider.h"
 #include "PhysicsBody.h"
 #include "PhysicsHandler.h"
 #include "PlayerCollider.h"
@@ -48,15 +49,16 @@ void PlayerController::Update(float deltaTime)
 		// Apply gravity if we're not grounded
 		m_pPhysicsBody->AddVelocity(Vector2f(0, -m_GravityScale * deltaTime));
 	}
-	else if (m_IsGrounded)
+	else if (m_IsGrounded && !m_IsClimbing)
 	{
-		// Reset velocity, otherwise gravity pulls into the ground
+		// Reset velocity, otherwise gravity pulls into the ground;
 		// if we'd reset to 0 the ground would never register collision
 		m_pPhysicsBody->SetYVelocity(-5);
 	}
-	else
+	else if (m_IsClimbing)
 	{
 		m_pPhysicsBody->SetYVelocity(0);
+		std::cout << m_pCollider->IsTouchingLadder() << std::endl;
 	}
 
 	UpdateLadderMovement();
@@ -79,7 +81,7 @@ void PlayerController::UpdateGroundMovement()
 {
 	int moveDir{ GetInputHandler()->GetAxis("left", "right") };
 
-	if (moveDir != 0)
+	if (moveDir != 0 && !m_IsClimbing)
 	{
 		m_LookDir = moveDir;
 	}
@@ -117,24 +119,45 @@ void PlayerController::UpdateGroundMovement()
 
 void PlayerController::UpdateLadderMovement()
 {
+	if ((!m_IsGrounded && !m_IsClimbing) || m_IsShooting) return;
+
 	const int ladderInput{ GetInputHandler()->GetAxis("down", "up") };
 
-	if (m_pCollider->IsTouchingLadder() && ladderInput != 0)
+	const bool isMovingOnLadder{ m_pCollider->IsTouchingLadder() && ladderInput != 0 };
+	if (isMovingOnLadder)
 	{
-		m_IsClimbing = true;
-		m_pPhysicsBody->SetYVelocity(m_ClimbSpeed * static_cast<float>(ladderInput))
+		const bool reachedBottom{ m_pCollider->GetTouchedLadder()->IsPlayerAtBottom() && ladderInput == -1 };
+		const bool reachedTop{ m_pCollider->GetTouchedLadder()->IsPlayerAtTop() && ladderInput == 1 };
+
+		if (reachedBottom || reachedTop)
+		{
+			m_IsClimbing = false;
+			m_pCollider->SetTrigger(false);
+		}
+		else
+		{
+			m_IsClimbing = true;
+			m_pCollider->SetTrigger(true);
+
+
+			m_pPhysicsBody->SetXVelocity(0);
+			m_pTransform->SetXPosition(m_pCollider->GetTouchedLadder()->GetLadderX());
+
+			m_pPhysicsBody->SetYVelocity(m_ClimbSpeed * static_cast<float>(ladderInput));
+		}
+	}
+	else if (!m_pCollider->IsTouchingLadder() && m_IsClimbing)
+	{
+		m_IsClimbing = false;
+		m_pCollider->SetTrigger(false);
 	}
 
-	if(m_pCollider->IsTouchingLadder() && GetInputHandler()->GetKeyPressed("up"))
+	m_pAnimator->SetParameter("isClimbing", m_IsClimbing);
+	m_pAnimator->SetParameter("climbDirection", ladderInput);
+
+	if(m_IsClimbing)
 	{
-		if (!m_IsClimbing) m_IsClimbing = true;
-		m_pPhysicsBody->SetYVelocity(m_ClimbSpeed);
-		m_IsGrounded = false;
-		m_pTransform->SetXPosition(m_pCollider->GetCurrentLadderX());
-	}
-	else if(m_pCollider->IsTouchingLadder() && GetInputHandler()->GetKeyPressed("down"))
-	{
-		
+		m_pAnimator->SetPaused(ladderInput == 0);
 	}
 }
 

@@ -29,8 +29,7 @@ public:
 
     void SetState(const std::string& newState);
 
-    void Pause();
-    void Unpause();
+    void SetPaused(bool value);
     bool IsPaused() const;
 
     void Update(float deltaTime) override;
@@ -47,10 +46,10 @@ private:
 
     AnimatorState* m_CurrentState;
 
-    bool m_IsPaused = false;
+    bool m_IsPaused{ false };
     // The time the animator has been in the current state
-    float m_CurrentStateTime = 0.f;
+    float m_CurrentStateTime{ 0.f };
     // Time until animation has to be looped
-    float m_CurrentLoopTime = 0.f;
-    int m_CurrentLoopFrame = 0;
+    float m_CurrentLoopTime{ 0.f };
+    int m_CurrentLoopFrame{ 0 };
 };

@@ -4,6 +4,7 @@
 #include <cassert>
 
 #include "Entity.h"
+#include "LadderCollider.h"
 #include "PlayerController.h"
 #include "Transform.h"
 
@@ -22,15 +23,9 @@ void PlayerCollider::Initialize()
 
 void PlayerCollider::OnCollisionEnter(Collider* other, float deltaTime)
 {
-	if(other->CompareTag("Enemy"))
-	{
-		std::cout << "Oh no! Player collided with an enemy! :(" << std::endl;
-	}
-
 	if(other->CompareTag("Ladder"))
 	{
-		m_IsTouchingLadder = true;
-		m_CurrentLadderX = other->GetParent()->GetComponent<Transform>()->GetPosition().x;
+		m_pTouchedLadder = dynamic_cast<LadderCollider*>(other);
 	}
 }
 
@@ -38,18 +33,16 @@ void PlayerCollider::OnCollisionExit(Collider* other, float deltaTime)
 {
 	if (other->CompareTag("Ladder"))
 	{
-		m_IsTouchingLadder = false;
-		m_CurrentLadderX = 0;
+		m_pTouchedLadder = nullptr;
 	}
 }
 
 bool PlayerCollider::IsTouchingLadder() const
 {
-	return m_IsTouchingLadder;
+	return m_pTouchedLadder != nullptr;
 }
 
-float PlayerCollider::GetCurrentLadderX() const
+LadderCollider* PlayerCollider::GetTouchedLadder() const
 {
-	return m_CurrentLadderX;
+	return m_pTouchedLadder;
 }
-

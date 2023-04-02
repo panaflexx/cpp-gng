@@ -30,7 +30,7 @@ public:
 	void SetBaseVertices(std::vector<Vector2f> newVertices);
 	const std::vector<Vector2f>& GetTransformedVertices();
 
-private:
+protected:
 	Transform* m_pTransform{ nullptr };
 
 	// Whether the collider is pass-through

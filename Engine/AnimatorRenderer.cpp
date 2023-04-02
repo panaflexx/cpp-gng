@@ -83,15 +83,11 @@ void AnimatorRenderer::SetState(const std::string& newState)
 	m_CurrentState->OnStateEnter(this);
 }
 
-void AnimatorRenderer::Pause()
+void AnimatorRenderer::SetPaused(bool value)
 {
-	m_IsPaused = true;
+	m_IsPaused = value;
 }
 
-void AnimatorRenderer::Unpause()
-{
-	m_IsPaused = false;
-}
 
 bool AnimatorRenderer::IsPaused() const
 {

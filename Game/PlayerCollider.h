@@ -1,6 +1,7 @@
 #pragma once
 #include "Collider.h"
 
+class LadderCollider;
 class AnimatorRenderer;
 class PlayerController;
 
@@ -14,10 +15,9 @@ public:
 	void OnCollisionExit(Collider* other, float deltaTime) override;
 
 	bool IsTouchingLadder() const;
-	float GetCurrentLadderX() const;
+	LadderCollider* GetTouchedLadder() const;
 private:
 	PlayerController* m_pPlayerController{ nullptr };
 
-	bool m_IsTouchingLadder{ false };
-	float m_CurrentLadderX{};
+	LadderCollider* m_pTouchedLadder{ nullptr };
 };

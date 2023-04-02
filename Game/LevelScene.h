@@ -16,6 +16,7 @@ public:
 private:
 	Entity* m_pPlayer{};
 	Entity* m_pObstacle{};
+	Entity* m_pObstacle2{};
 
 	Entity* m_pTestEnemy{};
 
