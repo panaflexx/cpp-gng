@@ -9,47 +9,77 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source\Player">
+      <UniqueIdentifier>{6ad7057e-e4fb-4fed-b192-c2c298491c41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Environment">
+      <UniqueIdentifier>{19b22e50-66ff-4844-bcde-2231d7089adb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Base">
+      <UniqueIdentifier>{c31e3187-b7f2-45f1-abfb-58e7ac665aa0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="GhostsAndGoblins.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="LevelScene.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source</Filter>
+    <ClCompile Include="PlayerCollider.cpp">
+      <Filter>Source\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerController.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerCollider.cpp">
-      <Filter>Source</Filter>
+      <Filter>Source\Player</Filter>
     </ClCompile>
     <ClCompile Include="LadderCollider.cpp">
+      <Filter>Source\Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCamera.cpp">
+      <Filter>Source\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectilePool.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="GhostsAndGoblins.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="LevelScene.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerController.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerCollider.h">
-      <Filter>Source</Filter>
+      <Filter>Source\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>Source\Player</Filter>
     </ClInclude>
     <ClInclude Include="LadderCollider.h">
+      <Filter>Source\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Source\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="constants.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCamera.h">
+      <Filter>Source\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectilePool.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>

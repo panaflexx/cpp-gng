@@ -1,6 +1,7 @@
 #include "pch.h"
 #include <ctime>
 
+#include "constants.h"
 #include "EntityKeeper.h"
 #include "Game.h"
 #include "GhostsAndGoblins.h"
@@ -15,7 +16,12 @@ int SDL_main(int argv, char** args)
 
 	StartHeapControl();
 
-	Game* pGame{ new GhostsAndGoblins{ Window{ "Ghosts N' Goblins - Nellessen, Patrick - 1DAE12", 480, 320, false } } };
+	Game* pGame{ new GhostsAndGoblins{ Window{
+		"Ghosts N' Goblins - Nellessen, Patrick - 1DAE12",
+		constants::SCREEN_WIDTH,
+		constants::SCREEN_HEIGHT,
+		false
+	} } };
 	pGame->Run();
 	delete pGame;
 	DumpMemoryLeaks();

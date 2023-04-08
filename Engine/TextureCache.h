@@ -14,7 +14,7 @@ public:
 	TextureCache(TextureCache&& rhs) = delete;
 	~TextureCache();
 
-	void LoadTexture(const std::string& name, const std::string& resourceLocation);
+	Texture* LoadTexture(const std::string& name, const std::string& resourceLocation);
 	Texture* GetTexture(const std::string& name);
 	void UnloadAllTextures();
 

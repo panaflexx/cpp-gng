@@ -41,6 +41,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Matrix2x3.cpp" />
+    <ClCompile Include="PartialRenderer.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
     <ClCompile Include="PhysicsHandler.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -73,6 +74,7 @@
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Matrix2x3.h" />
     <ClInclude Include="base.h" />
+    <ClInclude Include="PartialRenderer.h" />
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="PhysicsHandler.h" />
     <ClInclude Include="Renderer.h" />

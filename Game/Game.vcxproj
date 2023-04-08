@@ -166,16 +166,23 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pch.h</PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PlayerCamera.cpp" />
     <ClCompile Include="PlayerCollider.cpp" />
     <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="ProjectilePool.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="constants.h" />
     <ClInclude Include="GhostsAndGoblins.h" />
     <ClInclude Include="LadderCollider.h" />
     <ClInclude Include="LevelScene.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PlayerCamera.h" />
     <ClInclude Include="PlayerCollider.h" />
     <ClInclude Include="PlayerController.h" />
+    <ClInclude Include="Projectile.h" />
+    <ClInclude Include="ProjectilePool.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

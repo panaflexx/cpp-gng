@@ -91,6 +91,9 @@
     <ClCompile Include="AnimatorAnimationEndTransition.cpp">
       <Filter>Animation\Transition</Filter>
     </ClCompile>
+    <ClCompile Include="PartialRenderer.cpp">
+      <Filter>EC\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base.h">
@@ -182,6 +185,9 @@
     </ClInclude>
     <ClInclude Include="AnimatorAnimationEndTransition.h">
       <Filter>Animation\Transition</Filter>
+    </ClInclude>
+    <ClInclude Include="PartialRenderer.h">
+      <Filter>EC\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -27,6 +27,8 @@ void PhysicsHandler::DrawDebugColliders() const
 {
 	for(const Collider* pCollider : m_Colliders)
 	{
+		if (!pCollider->GetParent()->IsActive()) continue;
+
 		pCollider->DrawDebugCollider();
 	}
 }

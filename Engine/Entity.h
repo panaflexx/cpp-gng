@@ -61,7 +61,7 @@ TComponent* Entity::GetComponent() const
 
 	for (Component* comp : m_Components)
 	{
-		auto* castComponent = dynamic_cast<TComponent*>(comp);
+		TComponent* castComponent = dynamic_cast<TComponent*>(comp);
 		if (castComponent) return castComponent;
 	}
 

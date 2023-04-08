@@ -7,9 +7,11 @@
 #include "Entity.h"
 #include "InputHandler.h"
 #include "LadderCollider.h"
+#include "LevelScene.h"
 #include "PhysicsBody.h"
 #include "PhysicsHandler.h"
 #include "PlayerCollider.h"
+#include "ProjectilePool.h"
 #include "Transform.h"
 #include "utils.h"
 
@@ -58,7 +60,6 @@ void PlayerController::Update(float deltaTime)
 	else if (m_IsClimbing)
 	{
 		m_pPhysicsBody->SetYVelocity(0);
-		std::cout << m_pCollider->IsTouchingLadder() << std::endl;
 	}
 
 	UpdateLadderMovement();
@@ -206,12 +207,22 @@ void PlayerController::UpdateShooting(float deltaTime)
 		}
 		m_CurrentShootTime -= deltaTime;
 	}
-	else if(canShoot && GetInputHandler()->GetKeyDown("fire"))
+	else if(canShoot && !m_IsClimbing && GetInputHandler()->GetKeyDown("fire"))
 	{
-		std::cout << "SHOOT" << std::endl;
 		m_CurrentShootTime = m_ShootTime;
 		m_CurrentShootCooldown = m_ShootCooldown;
 		m_IsShooting = true;
+
+		const ProjectilePool* pool{ dynamic_cast<LevelScene*>(m_pParent->GetScene())->GetProjectilePool() };
+
+		pool->FireProjectile(Projectile::FireData{
+			Projectile::Type::player,
+			m_pTransform->GetPosition(),
+			Vector2f(m_ShootingSpeed * static_cast<float>(m_LookDir), 0),
+			0,
+			20.f,
+			5.f
+		});
 	}
 
 	m_pAnimator->SetParameter("isShooting", m_IsShooting);

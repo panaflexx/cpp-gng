@@ -15,82 +15,58 @@
 #include "PhysicsBody.h"
 #include "PlayerController.h"
 #include "Game.h"
-#include "LadderCollider.h"
 #include "PhysicsHandler.h"
+#include "PlayerCamera.h"
 #include "PlayerCollider.h"
+#include "ProjectilePool.h"
+#include "Texture.h"
 #include "TextureCache.h"
 #include "Transform.h"
 
-LevelScene::LevelScene()
-	: Scene(new Camera(2.f))
-{
-}
-
 void LevelScene::InitializeScene()
 {
+	m_pProjectilePool = new ProjectilePool(this);
+
 	CreatePlayer();
 
-	m_pObstacle = m_pEntityKeeper->CreateEntity(1, "Obstacle");
+	m_pCamera = new PlayerCamera(m_pPlayer->GetComponent<Transform>());
+	// Center camera at start
+	m_pCamera->MovePosition(Vector2f(-450, -300));
 
-	m_pObstacle->AddComponent(new Transform(m_pObstacle, Vector2f(0, 5)));
-	m_pObstacle->AddComponent(new Collider(m_pObstacle, std::vector<Vector2f>{
-		Vector2f(0, 0),
-		Vector2f(0, 5),
-		Vector2f(150, 5),
-		Vector2f(150, 0),
-	}));
+	CreateLevel();
+	//m_pTestLadder = m_pEntityKeeper->CreateEntity(0, "Ladder");
 
-	m_pObstacle->Initialize();
+	//m_pTestLadder->AddComponent(new Transform(m_pTestLadder, Vector2f(80, 10)));
+	//m_pTestLadder->AddComponent(new LadderCollider(m_pTestLadder, std::vector<Vector2f>{
+	//	Vector2f(0, 0),
+	//	Vector2f(0, 100),
+	//	Vector2f(10, 100),
+	//	Vector2f(10, 0),
+	//}));
 
+	//m_pTestLadder->Initialize();
+}
 
-	m_pObstacle2 = m_pEntityKeeper->CreateEntity(1, "Obstacle");
-
-	m_pObstacle2->AddComponent(new Transform(m_pObstacle2, Vector2f(30, 80)));
-	m_pObstacle2->AddComponent(new Collider(m_pObstacle2, std::vector<Vector2f>{
-		Vector2f(0, 0),
-		Vector2f(0, 5),
-		Vector2f(150, 5),
-		Vector2f(150, 0),
-	}));
-
-	m_pObstacle2->Initialize();
-
-
-	m_pTestEnemy = m_pEntityKeeper->CreateEntity(2, "Enemy");
-
-	m_pTestEnemy->AddComponent(new Transform(m_pTestEnemy, Vector2f(50, 10)));
-	m_pTestEnemy->AddComponent(new PhysicsBody(m_pTestEnemy));
-	m_pTestEnemy->AddComponent(new Collider(m_pTestEnemy, std::vector<Vector2f>{
-		Vector2f(0, 0),
-		Vector2f(0, 20),
-		Vector2f(20, 20),
-		Vector2f(20, 0),
-	}, true));
-
-	m_pTestEnemy->Initialize();
-
-
-	m_pTestLadder = m_pEntityKeeper->CreateEntity(0, "Ladder");
-
-	m_pTestLadder->AddComponent(new Transform(m_pTestLadder, Vector2f(80, 10)));
-	m_pTestLadder->AddComponent(new LadderCollider(m_pTestLadder, std::vector<Vector2f>{
-		Vector2f(0, 0),
-		Vector2f(0, 100),
-		Vector2f(10, 100),
-		Vector2f(10, 0),
-	}));
-
-	m_pTestLadder->Initialize();
+void LevelScene::CleanupScene()
+{
+	delete m_pProjectilePool;
 }
 
 void LevelScene::UpdateScene(float deltaTime)
 {
-	m_pTestEnemy->GetComponent<PhysicsBody>()->SetYVelocity(5);
+	// Parallax the background
+	const float newXPos{ (m_pCamera->GetPosition().x * 0.2f) };
+	m_pBackgroundTransform->SetPosition(Vector2f(newXPos, 0));
 }
 
 void LevelScene::DrawScene() const
 {
 	m_pPhysicsHandler->DrawDebugColliders();
+}
+
+ProjectilePool* LevelScene::GetProjectilePool() const
+{
+	return m_pProjectilePool;
 }
 
 void LevelScene::CreatePlayer()
@@ -103,7 +79,7 @@ void LevelScene::CreatePlayer()
 	// RENDERING
 	const float spriteWidth{ 22.f };
 	const float spriteHeight{ 25.f };
-	//new AnimationFrame(1.f, Rectf(spriteWidth * 1, spriteHeight * 1, spriteWidth, spriteHeight)),
+
 	const std::unordered_map<std::string, AnimatorState*> playerStates
 	{
 	{ "idle", new AnimatorState(new Animation(std::vector<AnimationFrame*>{
@@ -181,4 +157,35 @@ void LevelScene::CreatePlayer()
 	m_pPlayer->AddComponent(new PlayerController(m_pPlayer));
 
 	m_pPlayer->Initialize();
+}
+
+void LevelScene::CreateLevel()
+{
+	Texture* foreground{ m_pTextureCache->LoadTexture("level1Foreground", "level1Foreground.png") };
+	Texture* background{ m_pTextureCache->LoadTexture("level1Background", "level1Background.png") };
+
+	m_LevelSize = Vector2f(foreground->GetWidth(), foreground->GetHeight());
+
+	Entity* pBackground{ GetEntityKeeper()->CreateEntity(-10) };
+
+	m_pBackgroundTransform = new Transform(pBackground, Vector2f(m_LevelSize.x / 2, 0));
+	pBackground->AddComponent(m_pBackgroundTransform);
+	pBackground->AddComponent(new Renderer(pBackground, background));
+
+	pBackground->Initialize();
+
+
+	Entity* pForeground{ GetEntityKeeper()->CreateEntity(0) };
+
+	pForeground->AddComponent(new Transform(pForeground, Vector2f(0, 0)));
+	pForeground->AddComponent(new Renderer(pForeground, foreground));
+
+	pForeground->AddComponent(new Collider(pForeground, std::vector<Vector2f>{
+		Vector2f(0, 0),
+		Vector2f(0, 40),
+		Vector2f(1000, 40),
+		Vector2f(1000, 0),
+	}));
+
+	pForeground->Initialize();
 }

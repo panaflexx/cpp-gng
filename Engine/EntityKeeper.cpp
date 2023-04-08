@@ -55,6 +55,8 @@ void EntityKeeper::UpdateEntities(float deltaTime) const
 {
     for (const Entity* entity : m_Entities)
     {
+        if (!entity->IsActive()) continue;
+
         for (Component* comp : entity->GetComponents())
         {
             comp->Update(deltaTime);
@@ -66,6 +68,8 @@ void EntityKeeper::DrawEntities() const
 {
     for (const Entity* entity : m_Entities)
     {
+        if (!entity->IsActive()) continue;
+
         for (const Component* comp : entity->GetComponents())
         {
 			glPushMatrix();

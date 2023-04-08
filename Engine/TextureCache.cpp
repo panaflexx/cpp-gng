@@ -9,15 +9,17 @@ TextureCache::~TextureCache()
 	UnloadAllTextures();
 }
 
-auto TextureCache::LoadTexture(const std::string& name, const std::string& resourceLocation) -> void
+Texture* TextureCache::LoadTexture(const std::string& name, const std::string& resourceLocation)
 {
 	if (m_Textures.count(name) == 1)
 	{
 		std::cerr << "A texture of name '" << name << "' is already in cache";
-		return;
+		return nullptr;
 	}
 
-	m_Textures[name] = new Texture(resourceLocation);
+	Texture* tex{ new Texture(resourceLocation) };
+	m_Textures[name] = tex;
+	return tex;
 }
 
 Texture* TextureCache::GetTexture(const std::string& name)

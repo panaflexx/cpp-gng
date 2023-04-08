@@ -37,8 +37,8 @@ private:
 	const float m_ColliderWidth{ 22.f };
 	const float m_ColliderHeight{ 25.f };
 
-	const float m_MovementSpeed{ 30.f };
-	const float m_JumpForce{ 75.f };
+	const float m_MovementSpeed{ 50.f };
+	const float m_JumpForce{ 100.f };
 
 	const float m_CrouchedHitboxHeightMultiplier{ 0.5f };
 
@@ -49,7 +49,7 @@ private:
 	float m_CurrentShootTime{};
 
 	bool m_IsShooting{ false };
-
+	const float m_ShootingSpeed{ 150.f };
 
 	const float m_ClimbSpeed{ 50.f };
 	bool m_IsClimbing{ false };

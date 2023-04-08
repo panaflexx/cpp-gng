@@ -9,6 +9,7 @@ class Game;
 class Scene
 {
 public:
+	explicit Scene();
 	explicit Scene(Camera* pCamera);
 	Scene& operator=(const Scene& rhs) = delete;
 	Scene& operator=(Scene&& rhs) = delete;
@@ -22,6 +23,7 @@ public:
 	void Draw() const;
 
 	virtual void InitializeScene() = 0;
+	virtual void CleanupScene() = 0;
 	virtual void UpdateScene(float deltaTime) = 0;
 	virtual void DrawScene() const = 0;
 
@@ -29,6 +31,7 @@ public:
 
 	EntityKeeper* GetEntityKeeper() const;
 	PhysicsHandler* GetPhysicsHandler() const;
+	TextureCache* GetTextureCache() const;
 
 protected:
 	Game* m_pGame;

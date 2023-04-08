@@ -3,10 +3,10 @@
 #include "Animation.h"
 #include "AnimationFrame.h"
 
-Animation::Animation(std::vector<AnimationFrame*> frames)
+Animation::Animation(const std::vector<AnimationFrame*>& frames)
 {
     m_Frames = frames;
-    for (AnimationFrame* frame : frames)
+    for (const AnimationFrame* frame : frames)
     {
         m_TotalDuration += frame->GetDuration();
     }
@@ -14,14 +14,14 @@ Animation::Animation(std::vector<AnimationFrame*> frames)
 
 Animation::~Animation()
 {
-    for (auto&& frame : m_Frames)
+    for (const AnimationFrame* frame : m_Frames)
     {
         delete frame;
         frame = nullptr;
     }
 }
 
-AnimationFrame* Animation::GetFrame(int frameNr)
+AnimationFrame* Animation::GetFrame(int frameNr) const
 {
     return m_Frames[frameNr];
 }

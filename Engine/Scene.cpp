@@ -1,4 +1,3 @@
-// ReSharper disable once CppUnusedIncludeDirective, This is pch
 #include "base.h"
 #include "Scene.h"
 
@@ -9,6 +8,11 @@
 #include "EntityKeeper.h"
 #include "PhysicsHandler.h"
 #include "TextureCache.h"
+
+Scene::Scene()
+	: Scene(nullptr)
+{
+}
 
 Scene::Scene(Camera* pCamera)
 	: m_pGame{ nullptr }
@@ -25,6 +29,8 @@ Scene::~Scene()
 	delete m_pPhysicsHandler;
 	delete m_pTextureCache;
 	delete m_pCamera;
+
+	Scene::CleanupScene();
 }
 
 void Scene::Initialize(Game* pGame)
@@ -54,6 +60,10 @@ void Scene::Draw() const
 	glPopMatrix();
 }
 
+void Scene::CleanupScene()
+{
+}
+
 Game* Scene::GetGame() const
 {
 	return m_pGame;
@@ -67,4 +77,9 @@ EntityKeeper* Scene::GetEntityKeeper() const
 PhysicsHandler* Scene::GetPhysicsHandler() const
 {
 	return m_pPhysicsHandler;
+}
+
+TextureCache* Scene::GetTextureCache() const
+{
+	return m_pTextureCache;
 }

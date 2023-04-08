@@ -35,7 +35,7 @@ void InputHandler::Update()
 	// Keyboard
 	const Uint8* state = SDL_GetKeyboardState(nullptr);
 
-	for (auto&& inputPair : m_KeyMap)
+	for (std::pair<std::string, SDL_Scancode> inputPair : m_KeyMap)
 	{
 		const bool currentlyPressed = state[inputPair.second];
 		const bool pressedLastFrame = m_PressedLastFrame[inputPair.second];

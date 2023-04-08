@@ -15,7 +15,7 @@ std::vector<Component*> Entity::GetComponents() const
 
 void Entity::Initialize() const
 {
-	for (auto&& component : m_Components)
+	for (Component* component : m_Components)
 	{
 		component->Initialize();
 	}
