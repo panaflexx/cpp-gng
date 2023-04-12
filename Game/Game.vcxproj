@@ -153,6 +153,8 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyKeeper.cpp" />
     <ClCompile Include="GhostsAndGoblins.cpp" />
     <ClCompile Include="LadderCollider.cpp" />
     <ClCompile Include="LevelScene.cpp" />
@@ -171,9 +173,12 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="ProjectilePool.cpp" />
+    <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyKeeper.h" />
     <ClInclude Include="GhostsAndGoblins.h" />
     <ClInclude Include="LadderCollider.h" />
     <ClInclude Include="LevelScene.h" />
@@ -183,6 +188,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="ProjectilePool.h" />
+    <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

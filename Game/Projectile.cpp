@@ -4,6 +4,7 @@
 #include <cassert>
 
 #include "Entity.h"
+#include "PlayerController.h"
 #include "Renderer.h"
 #include "Transform.h"
 
@@ -48,6 +49,8 @@ void Projectile::SetFireData(const FireData& data)
 		Vector2f(data.width / 2, data.height / 2),
 		Vector2f(data.width / 2, -data.height / 2),
 	};
+
+	m_pRenderer->SetFlipX(data.velocity.x < 0);
 }
 
 void Projectile::OnCollisionEnter(Collider* other, float deltaTime)
@@ -55,9 +58,15 @@ void Projectile::OnCollisionEnter(Collider* other, float deltaTime)
 	if (m_Type == Type::enemy && other->CompareTag("Player"))
 	{
 		// Damage player
+		PlayerController* player{ other->GetParent()->GetComponent<PlayerController>() };
+		player->Damage(m_pTransform->GetPosition());
+
+		m_pParent->SetActive(false);
 	}
 	else if (m_Type == Type::player && other->CompareTag("Enemy"))
 	{
 		// Damage other (enemy)
+
+		m_pParent->SetActive(false);
 	}
 }

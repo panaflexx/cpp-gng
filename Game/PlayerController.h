@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 
+struct Vector2f;
 class PlayerCollider;
 class AnimatorRenderer;
 class Transform;
@@ -15,12 +16,16 @@ public:
 	void Update(float deltaTime) override;
 	void Draw() const override;
 
+	void Damage(Vector2f from);
+
 private:
 	Transform* m_pTransform{ nullptr };
 	PlayerCollider* m_pCollider{ nullptr };
 	PhysicsBody* m_pPhysicsBody{ nullptr };
 	AnimatorRenderer* m_pAnimator{ nullptr };
 
+	bool m_HasArmor{ true };
+	float m_HurtTimer{ 0.f };
 
 	bool m_IsGrounded{ false };
 	bool m_IsCrouched{ false };
@@ -31,6 +36,7 @@ private:
 	void CheckGrounded(float deltaTime);
 	void UpdateJumping() const;
 	void UpdateShooting(float deltaTime);
+	void UpdateHurt();
 
 	const float m_GravityScale{ 175.f };
 
@@ -42,7 +48,7 @@ private:
 
 	const float m_CrouchedHitboxHeightMultiplier{ 0.5f };
 
-	const float m_ShootCooldown{ 0.5f };
+	const float m_ShootCooldown{ 0.3f };
 	float m_CurrentShootCooldown{};
 
 	const float m_ShootTime{ 0.1f };
@@ -53,4 +59,8 @@ private:
 
 	const float m_ClimbSpeed{ 50.f };
 	bool m_IsClimbing{ false };
+
+	const float m_DamagedInactiveTime{ 0.5f };
+	const float m_DamagedHorizontalVelocity{ 50.f };
+	const float m_DamagedVerticalVelocity{ 50.f };
 };

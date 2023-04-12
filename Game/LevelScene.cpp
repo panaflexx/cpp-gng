@@ -107,7 +107,9 @@ void LevelScene::CreatePlayer()
 			new AnimationFrame(0.15f, Rectf(spriteWidth * 0, spriteHeight * 3, spriteWidth, spriteHeight)),
 			new AnimationFrame(0.15f, Rectf(spriteWidth * 1, spriteHeight * 3, spriteWidth, spriteHeight)),
 		}))},
-
+	{ "hurt", new AnimatorState(new Animation(std::vector<AnimationFrame*>{	
+			new AnimationFrame(1.f, Rectf(spriteWidth * 0, spriteHeight * 5, spriteWidth, spriteHeight)),
+		}))},
 	};
 
 	const std::list<AnimatorTransition*> playerTransitions
@@ -138,6 +140,15 @@ void LevelScene::CreatePlayer()
 		new ConditionalAnimatorTransition("walk", "climb", "isClimbing", true),
 
 		new ConditionalAnimatorTransition("climb", "idle", "isClimbing", false),
+
+		new ConditionalAnimatorTransition("idle", "hurt", "isHurt", true),
+		new ConditionalAnimatorTransition("crouch", "hurt", "isHurt", true),
+		new ConditionalAnimatorTransition("shoot", "hurt", "isHurt", true),
+		new ConditionalAnimatorTransition("shootCrouched", "hurt", "isHurt", true),
+		new ConditionalAnimatorTransition("jump", "hurt", "isHurt", true),
+		new ConditionalAnimatorTransition("walk", "hurt", "isHurt", true),
+
+		new ConditionalAnimatorTransition("hurt", "idle", "isHurt", false),
 	};
 
 	m_pPlayer->AddComponent(new AnimatorRenderer(

@@ -31,7 +31,7 @@ void PlayerController::Initialize()
 	m_pCollider = m_pParent->GetComponent<PlayerCollider>();
 	assert(m_pCollider != nullptr && "Entity has PlayerController component but no PlayerCollider component");
 	m_pAnimator = m_pParent->GetComponent<AnimatorRenderer>();
-	assert(m_pAnimator != nullptr && "Entity has AnimatorRenderer component but no AnimatorRenderer component");
+	assert(m_pAnimator != nullptr && "Entity has PlayerController component but no AnimatorRenderer component");
 
 	m_pCollider->SetBaseVertices(std::vector<Vector2f>{
 		Vector2f(-m_ColliderWidth / 2, -m_ColliderHeight / 2),
@@ -43,8 +43,14 @@ void PlayerController::Initialize()
 
 void PlayerController::Update(float deltaTime)
 {
-	UpdateGroundMovement();
+
+
 	CheckGrounded(deltaTime);
+
+	if (SDL_GetKeyboardState(nullptr)[SDL_SCANCODE_SPACE] && m_HurtTimer <= 0.f)
+	{
+		Damage(m_pTransform->GetPosition() + Vector2f(1, 0));
+	}
 
 	if (!m_IsGrounded && !m_IsClimbing)
 	{
@@ -62,6 +68,17 @@ void PlayerController::Update(float deltaTime)
 		m_pPhysicsBody->SetYVelocity(0);
 	}
 
+	m_pAnimator->SetParameter("isHurt", m_HurtTimer > 0);
+	if (m_HurtTimer > 0.f)
+	{
+		m_HurtTimer -= deltaTime;
+		UpdateHurt();
+		return;
+	}
+
+
+	UpdateGroundMovement();
+
 	UpdateLadderMovement();
 
 	UpdateJumping();
@@ -76,6 +93,27 @@ void PlayerController::Draw() const
 
 	utils::SetColor(Color4f(0, 1, 0, 1));
 	utils::DrawLine(bottomLeft.ToPoint2f(), bottomRight.ToPoint2f());
+}
+
+void PlayerController::Damage(Vector2f from)
+{
+	if (m_HasArmor)
+	{
+		m_HasArmor = false;
+		m_HurtTimer = m_DamagedInactiveTime;
+	}
+	else
+	{
+		// Dead
+		m_HurtTimer = 100.f;
+	}
+
+	const Vector2f hitDirection{ from - m_pTransform->GetPosition() };
+	const float directionMultiplier{ hitDirection.x > 0 ? -1.f : 1.f };
+
+	m_IsGrounded = false;
+	m_pTransform->MovePosition(Vector2f(0, 1));
+	m_pPhysicsBody->SetVelocity(Vector2f(m_DamagedHorizontalVelocity * directionMultiplier, m_DamagedVerticalVelocity));
 }
 
 void PlayerController::UpdateGroundMovement()
@@ -199,15 +237,15 @@ void PlayerController::UpdateShooting(float deltaTime)
 	}
 
 
-	if(m_CurrentShootTime > 0)
+	if (m_CurrentShootTime > 0)
 	{
-		if(m_CurrentShootTime - deltaTime <= 0)
+		if (m_CurrentShootTime - deltaTime <= 0)
 		{
 			m_IsShooting = false;
 		}
 		m_CurrentShootTime -= deltaTime;
 	}
-	else if(canShoot && !m_IsClimbing && GetInputHandler()->GetKeyDown("fire"))
+	else if (canShoot && !m_IsClimbing && GetInputHandler()->GetKeyDown("fire"))
 	{
 		m_CurrentShootTime = m_ShootTime;
 		m_CurrentShootCooldown = m_ShootCooldown;
@@ -222,8 +260,16 @@ void PlayerController::UpdateShooting(float deltaTime)
 			0,
 			20.f,
 			5.f
-		});
+			});
 	}
 
 	m_pAnimator->SetParameter("isShooting", m_IsShooting);
+}
+
+void PlayerController::UpdateHurt()
+{
+	if (m_IsGrounded && m_HurtTimer > 0.f)
+	{
+		m_HurtTimer = 0.f;
+	}
 }

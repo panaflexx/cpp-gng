@@ -18,6 +18,9 @@
     <Filter Include="Source\Base">
       <UniqueIdentifier>{c31e3187-b7f2-45f1-abfb-58e7ac665aa0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Enemy">
+      <UniqueIdentifier>{dd629c2e-fd4c-4074-a5b7-071c7048af4b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GhostsAndGoblins.cpp">
@@ -50,6 +53,15 @@
     <ClCompile Include="Projectile.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Zombie.cpp">
+      <Filter>Source\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyKeeper.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GhostsAndGoblins.h">
@@ -80,6 +92,15 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Projectile.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Source\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Zombie.h">
+      <Filter>Source\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyKeeper.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
