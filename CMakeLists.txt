@@ -7,7 +7,7 @@ find_package(SDL2 REQUIRED)
 find_package(OpenGL REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
-# Compile main NanoGUI library
+# Compile main enginelib library
 add_library(enginelib STATIC
     Engine/Animation.h Engine/Animation.cpp
     Engine/AnimationFrame.h Engine/AnimationFrame.cpp

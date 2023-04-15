@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include <thread>
 #include <chrono>
 
 #include "InputHandler.h"
@@ -153,7 +154,7 @@ void Game::Run()
 	SDL_Event e{};
 	while (!quit)
 	{
-        usleep(16000); // ~62fps
+        std::this_thread::sleep_for(std::chrono::microseconds(16000)); // ~62fps
 		// Poll next event from queue
 		while (SDL_PollEvent(&e) != 0)
 		{
