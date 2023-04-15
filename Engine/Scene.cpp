@@ -29,8 +29,6 @@ Scene::~Scene()
 	delete m_pPhysicsHandler;
 	delete m_pTextureCache;
 	delete m_pCamera;
-
-	Scene::CleanupScene();
 }
 
 void Scene::Initialize(Game* pGame)
@@ -58,10 +56,6 @@ void Scene::Draw() const
 	m_pEntityKeeper->DrawEntities();
 	DrawScene();
 	glPopMatrix();
-}
-
-void Scene::CleanupScene()
-{
 }
 
 Game* Scene::GetGame() const

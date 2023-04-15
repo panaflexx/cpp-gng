@@ -23,7 +23,6 @@ public:
 	void Draw() const;
 
 	virtual void InitializeScene() = 0;
-	virtual void CleanupScene() = 0;
 	virtual void UpdateScene(float deltaTime) = 0;
 	virtual void DrawScene() const = 0;
 

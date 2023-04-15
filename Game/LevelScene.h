@@ -11,8 +11,9 @@ class Entity;
 class LevelScene final : public Scene
 {
 public:
+	~LevelScene() override;
+
 	void InitializeScene() override;
-	void CleanupScene() override;
 	void UpdateScene(float deltaTime) override;
 	void DrawScene() const override;
 

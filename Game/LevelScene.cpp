@@ -25,6 +25,8 @@
 #include "Transform.h"
 #include "Zombie.h"
 
+
+
 void LevelScene::InitializeScene()
 {
 	std::cout << "Controls:\nArrows keys: move\nJ: jump\nK: shoot";
@@ -43,7 +45,8 @@ void LevelScene::InitializeScene()
 
 }
 
-void LevelScene::CleanupScene()
+
+LevelScene::~LevelScene()
 {
 	delete m_pProjectilePool;
 }
