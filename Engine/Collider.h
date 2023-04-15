@@ -30,11 +30,17 @@ public:
 	void SetBaseVertices(std::vector<Vector2f> newVertices);
 	const std::vector<Vector2f>& GetTransformedVertices();
 
+	Transform* GetTransform() const;
+
+	void SetEnabled(bool value);
+	bool IsEnabled() const;
 protected:
 	Transform* m_pTransform{ nullptr };
 
 	// Whether the collider is pass-through
 	bool m_IsTrigger{ false };
+
+	bool m_IsEnabled{ true };
 
 	// Non-transformed vertices in relation to the transforms position
 	std::vector<Vector2f> m_BaseVertices;

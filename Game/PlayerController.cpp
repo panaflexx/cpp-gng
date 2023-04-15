@@ -43,14 +43,7 @@ void PlayerController::Initialize()
 
 void PlayerController::Update(float deltaTime)
 {
-
-
 	CheckGrounded(deltaTime);
-
-	if (SDL_GetKeyboardState(nullptr)[SDL_SCANCODE_SPACE] && m_HurtTimer <= 0.f)
-	{
-		Damage(m_pTransform->GetPosition() + Vector2f(1, 0));
-	}
 
 	if (!m_IsGrounded && !m_IsClimbing)
 	{
@@ -203,7 +196,7 @@ void PlayerController::UpdateLadderMovement()
 void PlayerController::CheckGrounded(float deltaTime)
 {
 	// Grounded check
-	const Vector2f bottomLeft{ m_pTransform->GetPosition() + Vector2f(-m_ColliderWidth / 2 + 1, -m_ColliderHeight / 2 - 0.5f) };
+	const Vector2f bottomLeft{ m_pTransform->GetPosition() + Vector2f(-m_ColliderWidth / 2 + 1, -m_ColliderHeight / 2 - 1.f) };
 	const Vector2f bottomRight{ bottomLeft + Vector2f(m_ColliderWidth - 2, 0) };
 
 	const std::pair<bool, Collider*> result{ GetPhysicsHandler()->Linecast(bottomLeft, bottomRight) };

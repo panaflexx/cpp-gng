@@ -53,14 +53,8 @@
     <ClCompile Include="Projectile.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Source\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="Zombie.cpp">
       <Filter>Source\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyKeeper.cpp">
-      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -94,14 +88,8 @@
     <ClInclude Include="Projectile.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Source\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="Zombie.h">
       <Filter>Source\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyKeeper.h">
-      <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

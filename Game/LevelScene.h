@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "Vector2f.h"
 
+class Zombie;
 class ProjectilePool;
 class Transform;
 class Entity;
@@ -17,15 +18,22 @@ public:
 
 	ProjectilePool* GetProjectilePool() const;
 
+	Entity* GetPlayer() const;
+
 private:
 	ProjectilePool* m_pProjectilePool{};
 
 	Entity* m_pPlayer{};
 
+	Zombie* m_pEnemy{};
+
 	Vector2f m_LevelSize{};
 	Transform* m_pBackgroundTransform{};
 
 	void CreatePlayer();
+	void CreateEnemy();
 	void CreateLevel();
+
+	void CreateLadder(float xCoord) const;
 };
 

@@ -84,7 +84,7 @@ void PhysicsHandler::ResolveCollisions(float deltaTime) const
 		for (Collider* collider : m_Colliders)
 		{
 			if (physicsBody->GetCollider()->GetParent() == collider->GetParent()) continue;
-			if (collider->IsTrigger()) continue;
+			if (collider->IsTrigger() || !collider->GetParent()->IsActive() || !collider->IsEnabled()) continue;
 
 			collisions::CollisionHitInfo currentCollision = collisions::IntersectPolygons(
 				physicsBody->GetCollider()->GetTransformedVertices(),
@@ -108,9 +108,11 @@ void PhysicsHandler::NotifyColliders(float deltaTime)
 	{
 		for (Collider* collider : m_Colliders)
 		{
+			if (!collider->GetParent()->IsActive() || !collider->IsEnabled()) continue;
+
 			if (physicsBody->GetCollider()->GetParent() == collider->GetParent()) continue;
 
-			std::pair<PhysicsBody*, Collider*> currentCollisionPair = std::make_pair(physicsBody, collider);
+			std::pair<PhysicsBody*, Collider*> currentCollisionPair{ std::make_pair(physicsBody, collider) };
 
 			// Find current collision state
 			const collisions::CollisionHitInfo currentCollision{ collisions::IntersectPolygons(

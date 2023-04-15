@@ -17,6 +17,10 @@ public:
 
 	template<typename TComponent>
 	TComponent* GetComponent() const;
+
+	template<typename TComponent>
+	void RemoveComponent();
+
 	void AddComponent(Component* comp);
 	std::vector<Component*> GetComponents() const;
 
@@ -61,9 +65,28 @@ TComponent* Entity::GetComponent() const
 
 	for (Component* comp : m_Components)
 	{
-		TComponent* castComponent = dynamic_cast<TComponent*>(comp);
-		if (castComponent) return castComponent;
+		TComponent* castComponent{ dynamic_cast<TComponent*>(comp) };
+		if (castComponent)
+		{
+			return castComponent;
+		}
 	}
 
 	return nullptr;
+}
+
+template <typename TComponent>
+void Entity::RemoveComponent()
+{
+	static_assert(std::is_base_of_v<Component, TComponent>, "Provided template argument is not a component");
+
+	for(size_t i{ 0 }; i < m_Components.size(); ++i)
+	{
+		const TComponent* castComponent{ dynamic_cast<TComponent*>(m_Components[i]) };
+		if (castComponent)
+		{
+			delete m_Components[i];
+			m_Components.erase(m_Components.begin() + i);
+		}
+	}
 }

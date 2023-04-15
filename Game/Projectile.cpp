@@ -7,6 +7,7 @@
 #include "PlayerController.h"
 #include "Renderer.h"
 #include "Transform.h"
+#include "Zombie.h"
 
 Projectile::Projectile(Entity* pParent)
 	: Collider(pParent, std::vector<Vector2f>(4), true)
@@ -57,7 +58,6 @@ void Projectile::OnCollisionEnter(Collider* other, float deltaTime)
 {
 	if (m_Type == Type::enemy && other->CompareTag("Player"))
 	{
-		// Damage player
 		PlayerController* player{ other->GetParent()->GetComponent<PlayerController>() };
 		player->Damage(m_pTransform->GetPosition());
 
@@ -65,7 +65,8 @@ void Projectile::OnCollisionEnter(Collider* other, float deltaTime)
 	}
 	else if (m_Type == Type::player && other->CompareTag("Enemy"))
 	{
-		// Damage other (enemy)
+		Zombie* pEnemy{ other->GetParent()->GetComponent<Zombie>() };
+		pEnemy->Damage();
 
 		m_pParent->SetActive(false);
 	}

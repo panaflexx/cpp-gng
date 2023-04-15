@@ -23,9 +23,13 @@ void PlayerCollider::Initialize()
 
 void PlayerCollider::OnCollisionEnter(Collider* other, float deltaTime)
 {
-	if(other->CompareTag("Ladder"))
+	if (other->CompareTag("Ladder"))
 	{
 		m_pTouchedLadder = dynamic_cast<LadderCollider*>(other);
+	}
+	else if (other->CompareTag("Enemy"))
+	{
+		m_pPlayerController->Damage(other->GetTransform()->GetPosition());
 	}
 }
 

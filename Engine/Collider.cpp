@@ -50,6 +50,17 @@ void Collider::DrawDebugCollider() const
 
 void Collider::RecalculateTransformedVertices()
 {
+	if(!IsEnabled())
+	{
+		m_TransformedVertices = std::vector<Vector2f>();
+		return;
+	}
+
+	if (m_TransformedVertices.size() != m_BaseVertices.size())
+	{
+		m_TransformedVertices = std::vector<Vector2f>(m_BaseVertices.size());
+	}
+
 	const float rotation{ m_pTransform->GetRotation() * (utils::g_Pi / 180.f) };
 
 	const float rotSin{ std::sin(rotation) };
@@ -103,4 +114,21 @@ void Collider::SetBaseVertices(std::vector<Vector2f> newVertices)
 const std::vector<Vector2f>& Collider::GetTransformedVertices()
 {
 	return m_TransformedVertices;
+}
+
+Transform* Collider::GetTransform() const
+{
+	return m_pTransform;
+}
+
+void Collider::SetEnabled(bool value)
+{
+	m_IsEnabled = value;
+
+	if (value == true) RecalculateTransformedVertices();
+}
+
+bool Collider::IsEnabled() const
+{
+	return m_IsEnabled;
 }

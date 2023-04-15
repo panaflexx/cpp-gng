@@ -55,7 +55,7 @@ void EntityKeeper::UpdateEntities(float deltaTime) const
 {
     for (const Entity* entity : m_Entities)
     {
-        if (!entity->IsActive()) continue;
+        if (entity == nullptr || !entity->IsActive()) continue;
 
         for (Component* comp : entity->GetComponents())
         {
