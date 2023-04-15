@@ -26,7 +26,7 @@ bool LadderCollider::IsPlayerAtBottom() const
 	return physics->Linecast(
 		m_TransformedVertices[0] + Vector2f(0, 1),
 		m_TransformedVertices[3] + Vector2f(0, 1),
-		"player",
+		"Player",
 		true
 	).first;
 }
@@ -43,7 +43,7 @@ bool LadderCollider::IsPlayerAtTop() const
     return physics->Linecast(
 		m_TransformedVertices[1] - Vector2f(0, 1),
 		m_TransformedVertices[2] - Vector2f(0, 1),
-		"player",
+		"Player",
 		true
 	).first;
 

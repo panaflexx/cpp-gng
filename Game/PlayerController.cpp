@@ -255,7 +255,7 @@ void PlayerController::CheckCollisions(float deltaTime)
         //DPRINTF("hit = %s\n", collision.first.second->GetTag().c_str());
     }
 
-	//const std::pair<bool, Collider*> result{ GetPhysicsHandler()->Linecast(bottomLeft, bottomRight, "player") };
+	//const std::pair<bool, Collider*> result{ GetPhysicsHandler()->Linecast(bottomLeft, bottomRight, "Player") };
 
     DPRINTF("BottomLeft = %s\n", bottomLeft.ToString().c_str());
     DPRINTF("BottomRght = %s\n", bottomRight.ToString().c_str());

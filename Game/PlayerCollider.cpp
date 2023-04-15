@@ -20,8 +20,6 @@ void PlayerCollider::Initialize()
 
 	m_pPlayerController = m_pParent->GetComponent<PlayerController>();
 	assert(m_pPlayerController != nullptr && "Entity has PlayerCollider component but no PlayerController component");
-    // If we don't set tag, we won't know if we collide with ourself.
-    m_pParent->SetTag("player");
 }
 
 void PlayerCollider::OnCollisionEnter(Collider* other, float deltaTime)
