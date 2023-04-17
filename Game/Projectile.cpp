@@ -54,7 +54,7 @@ void Projectile::SetFireData(const FireData& data)
 	m_pRenderer->SetFlipX(data.velocity.x < 0);
 }
 
-void Projectile::OnCollisionEnter(Collider* other, float deltaTime)
+void Projectile::OnCollisionEnter(Collider* other, float deltaTime, Vector2f normal)
 {
 	if (m_Type == Type::enemy && other->CompareTag("Player"))
 	{

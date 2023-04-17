@@ -132,18 +132,18 @@ void PhysicsHandler::NotifyColliders(float deltaTime)
 			// Check collision state (against set data from last frame)
 			if (!collidedLastFrame && currentlyColliding)
 			{
-				physicsBody->GetCollider()->OnCollisionEnter(collider, deltaTime);
-				collider->OnCollisionEnter(physicsBody->GetCollider(), deltaTime);
+				physicsBody->GetCollider()->OnCollisionEnter(collider, deltaTime, currentCollision.normal);
+				collider->OnCollisionEnter(physicsBody->GetCollider(), deltaTime, currentCollision.normal);
 			}
 			else if (collidedLastFrame && currentlyColliding)
 			{
-				physicsBody->GetCollider()->OnCollisionUpdate(collider, deltaTime);
-				collider->OnCollisionUpdate(physicsBody->GetCollider(), deltaTime);
+				physicsBody->GetCollider()->OnCollisionUpdate(collider, deltaTime, currentCollision.normal);
+				collider->OnCollisionUpdate(physicsBody->GetCollider(), deltaTime, currentCollision.normal);
 			}
 			else if (collidedLastFrame && !currentlyColliding)
 			{
-				physicsBody->GetCollider()->OnCollisionExit(collider, deltaTime);
-				collider->OnCollisionExit(physicsBody->GetCollider(), deltaTime);
+				physicsBody->GetCollider()->OnCollisionExit(collider, deltaTime, currentCollision.normal);
+				collider->OnCollisionExit(physicsBody->GetCollider(), deltaTime, currentCollision.normal);
 			}
 
 			// Set collision state data for next frame

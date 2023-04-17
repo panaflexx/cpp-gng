@@ -14,9 +14,9 @@ public:
 
 	void Initialize() override;
 
-	virtual void OnCollisionUpdate(Collider* other, float deltaTime);
-	virtual void OnCollisionEnter(Collider* other, float deltaTime);
-	virtual void OnCollisionExit(Collider* other, float deltaTime);
+	virtual void OnCollisionUpdate(Collider* other, float deltaTime, Vector2f normal);
+	virtual void OnCollisionEnter(Collider* other, float deltaTime, Vector2f normal);
+	virtual void OnCollisionExit(Collider* other, float deltaTime, Vector2f normal);
 
 	void DrawDebugCollider() const;
 

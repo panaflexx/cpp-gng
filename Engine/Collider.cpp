@@ -33,9 +33,9 @@ void Collider::Initialize()
 	RecalculateTransformedVertices();
 }
 
-void Collider::OnCollisionUpdate(Collider* other, float deltaTime) { }
-void Collider::OnCollisionEnter(Collider* other, float deltaTime) { }
-void Collider::OnCollisionExit(Collider* other, float deltaTime) { }
+void Collider::OnCollisionUpdate(Collider* other, float deltaTime, Vector2f normal) { }
+void Collider::OnCollisionEnter(Collider* other, float deltaTime, Vector2f normal) { }
+void Collider::OnCollisionExit(Collider* other, float deltaTime, Vector2f normal) { }
 
 void Collider::DrawDebugCollider() const
 {

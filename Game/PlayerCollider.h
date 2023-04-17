@@ -11,9 +11,9 @@ public:
 	explicit PlayerCollider(Entity* pParent);
 
 	void Initialize() override;
-	void OnCollisionEnter(Collider* other, float deltaTime) override;
-	void OnCollisionUpdate(Collider* other, float deltaTime) override;
-	void OnCollisionExit(Collider* other, float deltaTime) override;
+	void OnCollisionEnter(Collider* other, float deltaTime, Vector2f normal) override;
+	void OnCollisionUpdate(Collider* other, float deltaTime, Vector2f normal) override;
+	void OnCollisionExit(Collider* other, float deltaTime, Vector2f normal) override;
 
 	bool IsTouchingLadder() const;
 	LadderCollider* GetTouchedLadder() const;

@@ -22,7 +22,7 @@ void PlayerCollider::Initialize()
 	assert(m_pPlayerController != nullptr && "Entity has PlayerCollider component but no PlayerController component");
 }
 
-void PlayerCollider::OnCollisionEnter(Collider* other, float deltaTime)
+void PlayerCollider::OnCollisionEnter(Collider* other, float deltaTime, Vector2f normal)
 {
 	if (other->CompareTag("Ladder"))
 	{
@@ -33,11 +33,12 @@ void PlayerCollider::OnCollisionEnter(Collider* other, float deltaTime)
         DPRINTF("PlayerCollider::OnCollisionEnter: foreground\n");
 	} else if(other->CompareTag("gravestone"))
     {
-        m_pPlayerController->Event("gravestone:on");
+		if(normal.y < 0)
+			m_pPlayerController->Event("gravestone:on");
     }
 }
 
-void PlayerCollider::OnCollisionUpdate(Collider* other, float deltaTime)
+void PlayerCollider::OnCollisionUpdate(Collider* other, float deltaTime, Vector2f normal)
 {
 	if(other->CompareTag("Ladder")) {
         DPRINTF("PlayerCollider::OnCollisionUpdate: Ladder\n");
@@ -47,11 +48,12 @@ void PlayerCollider::OnCollisionUpdate(Collider* other, float deltaTime)
 	if(other->CompareTag("foreground"))
 	{
         DPRINTF("PlayerCollider::OnCollisionUpdate: foreground\n");
-        m_pPlayerController->Event("grounded:on");
+		if(normal.y < 0)
+			m_pPlayerController->Event("grounded:on");
 	}
 }
 
-void PlayerCollider::OnCollisionExit(Collider* other, float deltaTime)
+void PlayerCollider::OnCollisionExit(Collider* other, float deltaTime, Vector2f normal)
 {
 	if (other->CompareTag("Ladder"))
 	{

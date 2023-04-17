@@ -27,7 +27,7 @@ public:
 
 	void SetFireData(const FireData& data);
 
-	void OnCollisionEnter(Collider* other, float deltaTime) override;
+	void OnCollisionEnter(Collider* other, float deltaTime, Vector2f normal) override;
 
 private:
 	Renderer* m_pRenderer{ nullptr };

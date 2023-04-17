@@ -200,7 +200,7 @@ void LevelScene::CreatePlayer()
 
 void LevelScene::CreateEnemy()
 {
-	Texture* pTexture{ GetTextureCache()->LoadTexture("zombie", "zombie.png") };
+	Texture* pTexture{ GetTextureCache()->LoadTexture("zombie", "Resources/zombie.png") };
 	Entity* pEnemy = m_pEntityKeeper->CreateEntity(5, "Enemy");
 
 	pEnemy->AddComponent(new Transform(pEnemy, Vector2f(150, 55)));
@@ -297,9 +297,9 @@ void LevelScene::CreateLevel()
 
 	pForeground->Initialize();
 
-	CreateLadder(730);
-	CreateLadder(921);
-	CreateLadder(1078);
+	CreateLadder(727);
+	CreateLadder(919);
+	CreateLadder(1075);
 
     // Stones
     std::vector<Vector2f> stoneVector{
