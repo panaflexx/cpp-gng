@@ -17,6 +17,8 @@ public:
 
 	void Damage();
 
+	void Event(std::string name);
+
 	void Reset();
 
 private:
@@ -29,10 +31,13 @@ private:
 
 	Transform* m_pPlayer{ nullptr };
 
-	const float m_WalkSpeed{ 30.f };
+	const float m_WalkSpeed{ 15.f };
+	bool m_IsGrounded{ false };
+	const float m_GravityScale{ 175.f };
 
 	bool m_IsDead{ false };
 	const float m_DeathTime{ 0.3f };
+	float m_SpawnTime{ 0.3f };
 	float m_CurrentDeathTime{};
 };
 

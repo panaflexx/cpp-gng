@@ -47,6 +47,9 @@ void PlayerController::Update(float deltaTime)
 {
     DPRINTF("DELTATIME=%f\n", deltaTime);
 
+	if(GetInputHandler()->GetKeyPressed("exit"))
+		exit(0);
+
 	CheckCollisions(deltaTime);
 
 	if (!m_IsGrounded && !m_IsClimbing)
@@ -125,6 +128,10 @@ void PlayerController::Event(std::string name, Vector2f move, Vector2f accel)
         m_IsGrounded = true;
     } else if(name == "grounded:off") {
         m_IsGrounded = false;
+    } else if(name == "deathzone") {
+		printf("deathzone hit\n");
+        m_IsGrounded = true;
+		m_pTransform->SetPosition(Vector2f(80, 40));
     }
 }
 
@@ -189,6 +196,10 @@ void PlayerController::UpdateGroundMovement()
 	if(m_IsShooting && m_IsGrounded)
 	{
 		m_pPhysicsBody->SetXVelocity(0);
+	}
+	if(GetInputHandler()->GetKeyPressed("info")) {
+		printf("Position=%s m_LookDir=%d m_IsGrounded=%s\n",
+			m_pTransform->GetPosition().ToString().c_str(), m_LookDir, BSTR(m_IsGrounded));
 	}
 }
 

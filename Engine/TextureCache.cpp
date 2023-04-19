@@ -7,6 +7,7 @@
 TextureCache::TextureCache(std::string TextureFolder)
 	: m_TextureDirectory{ TextureFolder }
 {
+	printf("New TextureCache: folder=%s \n",TextureFolder.c_str());
 }
 
 TextureCache::~TextureCache()

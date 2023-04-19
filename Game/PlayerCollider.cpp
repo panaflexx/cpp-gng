@@ -31,10 +31,11 @@ void PlayerCollider::OnCollisionEnter(Collider* other, float deltaTime, Vector2f
 	} else if(other->CompareTag("foreground"))
 	{
         DPRINTF("PlayerCollider::OnCollisionEnter: foreground\n");
-	} else if(other->CompareTag("gravestone"))
-    {
+	} else if(other->CompareTag("gravestone")) {
 		if(normal.y < 0)
 			m_pPlayerController->Event("gravestone:on");
+    } else if(other->CompareTag("deathzone")) {
+		m_pPlayerController->Event("deathzone");
     }
 }
 

@@ -41,6 +41,9 @@ void Zombie::Update(float deltaTime)
 		const float directionTowardsPlayer{ isRightOfPlayer ? -1.f : 1.f };
 
 		m_pPhysicsBody->SetXVelocity(directionTowardsPlayer * m_WalkSpeed);
+		if(!m_IsGrounded) {
+			m_pPhysicsBody->AddVelocity(Vector2f(0, -(m_GravityScale * (deltaTime))));
+		}
 
 		return;
 	}
@@ -60,12 +63,21 @@ void Zombie::Damage()
 	m_pAnimator->SetParameter("isDead", true);
 
 	m_pPhysicsBody->SetXVelocity(0);
+	m_pPhysicsBody->SetYVelocity(0);
 
 	m_pCollider->SetEnabled(false);
 
-
 	m_CurrentDeathTime = m_DeathTime;
 	m_IsDead = true;
+}
+
+void Zombie::Event(std::string name)
+{
+	// Basic events to handle gravity
+	if(name == "foreground" || name == "grounded:on")
+		m_IsGrounded = true;
+	if(name == "grounded:off")
+		m_IsGrounded = true;
 }
 
 void Zombie::Reset()

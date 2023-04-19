@@ -10,7 +10,7 @@
 #include "TextureCache.h"
 
 Scene::Scene()
-	: Scene(nullptr, "")
+	: Scene(nullptr, "../")
 {
 }
 

@@ -37,5 +37,6 @@ private:
 	void CreateLevel();
 
 	void CreateLadder(float xCoord) const;
+	void CreateGrave(Vector2f coord) const;
 };
 

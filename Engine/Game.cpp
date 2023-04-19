@@ -180,7 +180,7 @@ void Game::Run()
 		// Prevent jumps in time caused by break points
 		elapsedSeconds = std::min(elapsedSeconds, m_MaxElapsedSeconds);
         // Controls the speed of the game overall
-        elapsedSeconds *= 1.2;
+        //elapsedSeconds *= 1.2;
 		// Call the Game object's Update function, using time in seconds (!)
 		this->Update(elapsedSeconds);
 

@@ -44,13 +44,13 @@ private:
 	void UpdateShooting(float deltaTime);
 	void UpdateHurt();
 
-	const float m_GravityScale{ 175.f };
+	const float m_GravityScale{ 155.f };
 
 	const float m_ColliderWidth{ 22.f };
 	const float m_ColliderHeight{ 25.f };
 
-	const float m_MovementSpeed{ 50.f };
-	const float m_JumpForce{ 100.f };
+	const float m_MovementSpeed{ 40.f };
+	const float m_JumpForce{ 120.f };
 
 	const float m_CrouchedHitboxHeightMultiplier{ 0.5f };
 

@@ -25,12 +25,20 @@
 #include "TextureCache.h"
 #include "Transform.h"
 #include "Zombie.h"
+#include "ZombieCollider.h"
 
 
 
 void LevelScene::InitializeScene()
 {
 	std::cout << "Controls:\nArrows keys: move\nJ: jump\nK: shoot";
+
+
+	TextureCache *tCache = GetTextureCache();
+	// Mac
+	tCache->SetTextureDirectory("../");
+	// Linux
+	tCache->SetTextureDirectory("");
 
 	m_pProjectilePool = new ProjectilePool(this);
 
@@ -40,24 +48,10 @@ void LevelScene::InitializeScene()
 	// Center camera at start
 	m_pCamera->MovePosition(Vector2f(-450, -300));
 
-	CreateEnemy();
+	//for(int i=0; i<50; i++)
+		CreateEnemy();
 
 	CreateLevel();
-
-    // First Ladder
-    /*
-	m_pTestLadder = m_pEntityKeeper->CreateEntity(0, "Ladder");
-
-    m_pTestLadder->AddComponent(new Transform(m_pTestLadder, Vector2f(730, 40)));
-	m_pTestLadder->AddComponent(new LadderCollider(m_pTestLadder, std::vector<Vector2f>{
-		Vector2f(0, 0),
-		Vector2f(0, 100),
-		Vector2f(5, 100),
-		Vector2f(5, 0),
-	}));
-
-	m_pTestLadder->Initialize();
-    */
 }
 
 
@@ -200,10 +194,19 @@ void LevelScene::CreatePlayer()
 
 void LevelScene::CreateEnemy()
 {
-	Texture* pTexture{ GetTextureCache()->LoadTexture("zombie", "Resources/zombie.png") };
+	Texture* pTexture = GetTextureCache()->GetTexture("zombie");
+
+	if(!pTexture)
+		pTexture = GetTextureCache()->LoadTexture("zombie", "Resources/zombie.png");
+
 	Entity* pEnemy = m_pEntityKeeper->CreateEntity(5, "Enemy");
 
-	pEnemy->AddComponent(new Transform(pEnemy, Vector2f(150, 55)));
+	printf("pTexture = %p, pEnemy = %p\n", pTexture, pEnemy);
+
+	// FIXME: Hardcoded with of 2500
+	Vector2f pos{ (float)(rand() % 2500), 55 };
+	//Vector2f(150, 55)
+	pEnemy->AddComponent(new Transform(pEnemy, pos));
 
 	// RENDERING
 	const float spriteWidth{ 22.f };
@@ -211,6 +214,13 @@ void LevelScene::CreateEnemy()
 
 	const std::unordered_map<std::string, AnimatorState*> enemyStates
 	{
+	{ "spawn", new AnimatorState(new Animation(std::vector<AnimationFrame*>{
+			new AnimationFrame(0.25f, Rectf(spriteWidth * 0, spriteHeight * 1, spriteWidth, spriteHeight)),
+			new AnimationFrame(0.25f, Rectf(spriteWidth * 1, spriteHeight * 1, spriteWidth, spriteHeight)),
+			new AnimationFrame(0.25f, Rectf(spriteWidth * 2, spriteHeight * 1, spriteWidth, spriteHeight)),
+			new AnimationFrame(0.25f, Rectf(spriteWidth * 3, spriteHeight * 1, spriteWidth, spriteHeight)),
+			new AnimationFrame(0.25f, Rectf(spriteWidth * 4, spriteHeight * 1, spriteWidth, spriteHeight)),
+		}))},
 	{ "walk", new AnimatorState(new Animation(std::vector<AnimationFrame*>{
 			new AnimationFrame(0.25f, Rectf(spriteWidth * 5, spriteHeight * 1, spriteWidth, spriteHeight)),
 			new AnimationFrame(0.25f, Rectf(spriteWidth * 6, spriteHeight * 1, spriteWidth, spriteHeight)),
@@ -236,7 +246,7 @@ void LevelScene::CreateEnemy()
 	));
 
 	// LOGIC
-	pEnemy->AddComponent(new Collider(pEnemy, std::vector<Vector2f>{
+	pEnemy->AddComponent(new ZombieCollider(pEnemy, std::vector<Vector2f>{
 		Vector2f(-spriteWidth / 2, -spriteHeight / 2),
 		Vector2f(-spriteWidth / 2, spriteHeight / 2),
 		Vector2f(spriteWidth / 2, spriteHeight / 2),
@@ -287,6 +297,7 @@ void LevelScene::CreateLevel()
 		Vector2f(610, 110 + 10),
 		Vector2f(610, 110),
 	}));
+	// Level wall Left
 	pForeground->AddComponent(new Collider(pForeground, std::vector<Vector2f>{
 		Vector2f(-5, 0),
 		Vector2f(-5, 200),
@@ -299,41 +310,34 @@ void LevelScene::CreateLevel()
 
 	CreateLadder(727);
 	CreateLadder(919);
-	CreateLadder(1075);
+	CreateLadder(1078);
 
-    // Stones
-    std::vector<Vector2f> stoneVector{
-                Vector2f(0, 0),
-                Vector2f(0, 12),
-                Vector2f(6, 12),
-                Vector2f(6, 0),
-    };
-	Entity* pStone{ GetEntityKeeper()->CreateEntity(0) };
-	pStone->AddComponent(new Transform(pStone, Vector2f(54, 40)));
-	pStone->AddComponent(new Collider(pStone, stoneVector));
-    pStone->SetTag("gravestone");
-	pStone->Initialize();
+    // Deathzone - area below the screen where the player dies
+	Entity* pDeath{ GetEntityKeeper()->CreateEntity(-10) };
+	pDeath->AddComponent(new Transform(pDeath, Vector2f(0, 0)));
+	pDeath->AddComponent(new Collider(pDeath, std::vector<Vector2f>{
+                Vector2f(0, -10),
+                Vector2f(foreground->GetWidth(), -10),
+                Vector2f(foreground->GetWidth(), 10),
+                Vector2f(0, 10),
+    }));
+    pDeath->SetTag("deathzone");
+	pDeath->Initialize();
 
-    // Stones
-	Entity* pStone2{ GetEntityKeeper()->CreateEntity(0) };
-	pStone2->AddComponent(new Transform(pStone2, Vector2f(245, 40)));
-	pStone2->AddComponent(new Collider(pStone2, stoneVector));
-    pStone2->SetTag("gravestone");
-	pStone2->Initialize();
+    // Gravestones
+	CreateGrave(Vector2f{ 54, 40});
+	CreateGrave(Vector2f{ 245, 40});
+	CreateGrave(Vector2f{ 420, 40});
+	CreateGrave(Vector2f{ 532, 40});
+	CreateGrave(Vector2f{ 756, 40});
+	CreateGrave(Vector2f{ 772, 120});
+	CreateGrave(Vector2f{ 868, 120});
+	CreateGrave(Vector2f{ 965, 120});
+	CreateGrave(Vector2f{ 965, 40});
+	CreateGrave(Vector2f{ 1108, 40});
+	CreateGrave(Vector2f{ 1268, 40});
+	CreateGrave(Vector2f{ 1524, 40});
 
-    // Stones
-	Entity* pStone4{ GetEntityKeeper()->CreateEntity(0) };
-	pStone4->AddComponent(new Transform(pStone4, Vector2f(420, 40)));
-	pStone4->AddComponent(new Collider(pStone4, stoneVector));
-    pStone4->SetTag("gravestone");
-	pStone4->Initialize();
-
-    // Stones
-	Entity* pStone3{ GetEntityKeeper()->CreateEntity(0) };
-	pStone3->AddComponent(new Transform(pStone3, Vector2f(532, 40)));
-	pStone3->AddComponent(new Collider(pStone3, stoneVector));
-    pStone3->SetTag("gravestone");
-	pStone3->Initialize();
 }
 
 void LevelScene::CreateLadder(float xCoord) const
@@ -353,3 +357,20 @@ void LevelScene::CreateLadder(float xCoord) const
 
 	pLadder1->Initialize();
 }
+
+void LevelScene::CreateGrave(Vector2f coord) const
+{
+    // Gravestone
+    std::vector<Vector2f> stoneVector{
+                Vector2f(0, 0),
+                Vector2f(0, 12),
+                Vector2f(6, 12),
+                Vector2f(6, 0),
+    };
+	Entity* pStone{ GetEntityKeeper()->CreateEntity(0) };
+	pStone->AddComponent(new Transform(pStone, coord)); 
+	pStone->AddComponent(new Collider(pStone, stoneVector));
+    pStone->SetTag("gravestone");
+	pStone->Initialize();
+}
+
